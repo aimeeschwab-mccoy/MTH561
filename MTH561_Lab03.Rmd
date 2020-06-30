@@ -1,0 +1,116 @@
+---
+title: "Lab 3: Expected Value, Variance, and Discrete Distributions"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+
+
+# Sections 3.2-3.3: pmfs, $E(Y)$ and $V(Y)$
+
+1. (Q3.1) When the health department tested private wells in a county for two impurities commonly found in drinking water, it found that 20% of the wells had neither impurity, 40% had impurity A, and 50% had impurity B. (Obviously, some had both impurities.) If a well is randomly chosen from those in the county, 
+
+    a) Find the probability distribution for $Y$, the number of impurities found in the well.
+    b) Find $E(Y)$.
+    c) Find $V(Y)$.
+
+2. (Q3.5) A problem in a test given to small children asks them to match each of three pictures of animals to the word identifying that animal. If a child assigns the three words at random to the three pictures, 
+
+    a) Find the probability distribution for $Y$, the number of correct matches.
+    b) Find $E(Y)$.
+    c) Find $V(Y)$.
+    
+3. (Q3.21) The number $N$ of residential homes that a fire company can serve depends on the distance $r$ (in city blocks) that a fire engine can cover in a specified (fixed) period of time. If we assume that $N$ is proportional to the area of a circle $R$ blocks from the firehouse, then $N = C\pi R^2$, where $C$ is a constant and $R$, a random variable, is the number of blocks that a fire engine can move in the specified time interval. For a particular fire company, $C = 8$, the probability distribution for $R$ is as shown in the accompanying table, and $p(r) = 0$ for $r \le 20$ and $r \ge 27$. Find the expected value of $N$, the number of homes that the fire department can serve.
+
+$r$| 21| 22|23|24|25|26
+---|---|---|---|---|---|---
+$p(r)$|0.05|0.20|0.30|0.25|0.15|0.05
+
+4. (Q3.33) Let $Y$ be a discrete random variable with mean $\mu$ and variance $\sigma^2$. If $a$ and $b$ are constants, find an expression for:
+
+    a) $E(aY+b)$
+    b) $V(aY+b)$
+    
+# Section 3.4: Binomial Distribution
+
+1. (Q3.37) In 2003, the average combined SAT score (math and verbal) for college-bound students in the United States was 1026. Suppose that approximately 45% of all high school graduates took this test and that 100 high school graduates are randomly selected from among all high school grads in the United States. Which of the following random variables has a distribution that can be approximated by a binomial distribution? Whenever possible, give the values for $n$ and $p$.
+
+    a) The number of students who took the SAT
+    b) The scores of the 100 students in the sample
+    c) The number of students in the sample who scored above average on the SAT
+    d) The amount of time required by each student to complete the SAT
+    e) The number of female high school grads in the sample
+
+2. (Q3.39) A complex electronic system is built with a certain number of backup components in its subsystems. One subsystem has four identical components, each with a probability of 0.2 of failing in less than 1000 hours. The subsystem will operate if any two of the four components are operating. Assume that the components operate independently. Find: 
+
+    a) The probability that exactly two of the four components last longer than 1000 hours.
+    b) The probability that the subsystem operates longer than 1000 hours.
+    c) $E(Y)$ and $V(Y)$, where $Y$ is the number of components that fails in 1000 hours or less.
+
+3. (Q3.41) A multiple-choice examination has 15 questions, each with five possible answers, only one of which is correct. Suppose that one of the students who takes the examination answers each of the questions with an independent random guess. 
+
+    a) Let $Y$ be the number of questions the student guesses correctly. Find $E(Y)$ and $V(Y)$.
+    b) What is the probability that he answers at least ten questions correctly?
+
+
+# Section 3.5: Geometric Distribution
+
+1. (Q3.67) Suppose that 30% of the applicants for a certain industrial job possess advanced training in computer programming. Applicants are interviewed sequentially and are selected at random from the pool. 
+
+    a) Find the probability that the first applicant with advanced training in programming is found on the fifth interview.
+    b) Find the expected value and variance of the number of applicants needed to be interviewed until the first one with advanced training is found.
+
+2. (Q3.73) A certified public accountant (CPA) has found that nine of ten company audits contain substantial errors. If the CPA audits a series of company accounts, what is the probability that the first account containing substantial errors...
+
+    a) is the third one to be audited?
+    b) will occur on or after the third audited account?
+    
+3. (Q3.74) What are the mean and standard deviation of the number of accounts that must be examined to find the first one with substantial errors?
+
+
+---
+
+# Problems to submit
+
+__Question 1__: Suppose that $Y$ is a discrete random variable with mean $\mu$ and variance $\sigma^2$. Let $W=2Y$.
+
+a) Find $E(W)$ in terms of $\mu$.
+b) Do you expect the variance of $W$ to be larger than, smaller than, or equal to $\sigma^2$? Explain your reasoning without using formulas or mathematical expressions.
+c) Find $V(W)$.
+
+__Question 2__: Of a population of consumers, 60% are reputed to prefer a particular brand, A, of toothpaste. If a group of randomly selected consumers is interviewed:
+
+a) What is the probability that only two people have to be interviewed to encounter the first consumer who prefers brand A? 
+b) At least two people?
+
+__Question 3__: Of a population of consumers, 60% are reputed to prefer a particular brand, A, of toothpaste. Five people will be selected at random, and asked about their toothpaste preference.
+
+a) How many consumers would you expect to favor brand A?
+b) What's the probability that at least four out of five favor brand A?
