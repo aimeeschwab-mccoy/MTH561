@@ -1,0 +1,133 @@
+---
+title: 'Lab 1: Introduction to Probability and Counting'
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Section 2.3: Review of Set Notation
+
+1. (Q2.3) Draw Venn diagrams to verify DeMorgan's laws. That is, for any two sets $A$ and $B$,
+
+$$\overline{(A\cup B)} = \bar{A} \cap \bar{B}$$
+
+$$\overline{(A\cap B)} = \bar{A} \cup \bar{B}$$
+
+2. (Q2.6) From a survey of 60 students attending a local university, it was found that 9 were living off campus, 36 were undergraduates, and 3 were undergraduates living off campus. Find the number of these students who were:
+
+    a) Undergraduates, were living off campus, or both.
+    b) Undergraduates living on campus.
+    c) Graduate students living on campus.
+
+3. Suppose $P(A)=0.40$, $P(B)=0.60$, and $P(A \cup B)=0.80$. Find
+
+    a) $P(A^c \cap B^c)$
+    b) $P(A \cap B)$
+    c) $P(A \ only)$
+    d) $P(B \ only)$
+    
+
+# Section 2.4: Discrete Probability Models
+
+1. (Q2.13) Americans can be quite suspicious, especially about government conspiracies. On the question of whether the US Air Force has withheld proof of the existence of intelligent life on other planets, the proportion of Americans with four potential repsonses are in the table below. Suppose that one American is selected and his or her opinion is recorded.
+
+    a) What are the simple events for this experiment?
+    b) Are the simple events in part (a) all equally likely? If not, what are the probabilities that should be assigned to each?
+    c) What is the probability that the person selected fiinds it at least somewhat likely that the US Air Force is withholding information about intelligent life on other planets?
+
+2. (Q2.17) Hydraulic landing assemblies coming from an aircraft rework facility are each inspected for defects. Historical records indicate that 8% have defects in shafts only, 6% have defects in bushings only, and 2% have defects in both shafts and bushings. One of the hydraulic assemblies is selected randomly. What is the probability that the assembly has:
+
+    a) A bushing defect?
+    b) A shaft or bushing defect?
+    c) Exactly one of the two types of defects?
+    d) Neither type of defect?
+
+# Section 2.5: Sample-Point Method
+
+1. (Q2.25) A single car is randomly selected from all those registered at a local DMV. What do you think of the following statment: "All cars are either Volkswagens or they are not. Therefore, the probability is 1/2 that the selected car is a Volkswagen."
+
+2. (Q2.29) Two additional jurors are needed to complete a jury for a criminal trial. There are six prospective jurors, two women and four men. Two jurors are randomly selected from the six available.
+
+    a) Define the experiment and describe one sample point.
+    b) List the sample space associated with this experiment.
+    c) What is the probability that both of the jurors selected are women?
+
+3. In two dice rolls, let $X$ be the outcome of the first die and $Y$ the outcome of the second die. Then $X+Y$ is the sum of the two dice. Use the sample-point method to find the probabilities of the following events. Draw a diagram or picture to support your answer.
+
+    a) ${X+Y=4}$
+    b) ${X+Y=9}$
+    c) ${Y=3}$
+    d) ${X=Y}$
+    e) ${X>2Y}$
+
+# Section 2.6: Tools for Counting
+
+1. (Q2.35) An airline has six flights from New York to California and seven flights from California to Hawaii per day. If the flights are to be made on separate days, how many different flight arrangements can the airline offer from New York to Hawaii?
+
+2. (Q2.41) How many different seven-digit telephone numbers can be formed if the first digit cannot be zero?
+
+    a) Define the experiment and describe one sample point.
+    b) List the sample space associated with this experiment.
+    c) What is the probability that both of the jurors selected are women?
+
+3. (Q2.43) A fleet of nine taxis is to be dispatched to three airports in such a way that three go to airport A, five go to airport B, and one goes to airport C. In how many distinct ways can this be accomplished?
+
+4. (Q2.55) A study is to be conducted in a hospital to determine the attitudes of nurses toward various administrative procedures. A sample of 10 nurses is to be selected from a total of the 90 nurses employed by the hospital.
+
+    a) How many different samples of 10 nurses can be selected?
+    b) Twenty of the 90 nurses are male. If 10 nurses are randomly selected from those employed by the hospital, what is the probability that the sample of ten will include exactly 4 male (and 6 female) nurses?
+    
+---
+
+# Problems to submit
+
+On your own, complete the following problems. You may use your notes, this lab activity, or any other resources. Submit your work when you are finished.
+
+__Question 1__: The Mathematics Department is conducting a raffle where 40 tickets are sold - one per customer. There are three prizes to be awarded. If five of the faculty buy raffle tickets:
+
+1. What is the probability that faculty win all three prizes?
+2. What is the probability that faculty win none of the prizes?
+3. What is the probability that at least one faculty member wins a prize?
+
+
+
+__Question 2__: In Nebraska, license plate numbers are assigned depending on your county of residence. Most counties are identified using “prefix numbers” based on the number of registered vehicles in the county in 1922 – which is when the numbers were assigned.
+
+1. Before 2002, Douglas, Lancaster, and Sarpy counties each had a numerical prefix (together, these counties form the greater Omaha area and the Lincoln area). Following the prefix, there was a single letter and four numbers. How many possible combinations could be assigned in Douglas, Lancaster, and Sarpy counties before 2002?
+2. In 2002, Nebraska began issuing plates with three letters, followed by three numbers, to residents of Douglas, Lancaster, and Sarpy counties. How many possible combinations could be assigned in Douglas, Lancaster, and Sarpy counties after 2002?
+
+
+
+__Question 3__: Suppose 80% of people like peanut butter, 89% like jelly, and 78% like both. A person is selected at random. What is the probability that this individual:
+
+1. Likes peanut butter?
+2. Likes peanut butter or jelly?
+3. Likes either peanut butter or jelly - but not both?
+4. Likes neither peanut butter nor jelly?
+
