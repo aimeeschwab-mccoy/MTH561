@@ -1,0 +1,42 @@
+/*Import fonts*/
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+body { font-family: 'Source Sans Pro' }
+h1 {
+  font-family: 'Source Sans Pro';
+  font-weight: normal;
+  color: #08519c;
+}
+
+h2, h3{
+  font-family: 'Source Sans Pro';
+  font-weight: normal;
+  color: #08519c;
+}
+
+
+
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace; }
+
+.remark-code-line-highlighted { background-color: rgba(255, 204, 79, 0.3); }
+
+/*Inverse background color*/
+
+.inverse {
+  background-color: #3182bd;
+  color: #ffffff;
+}
+
+.inverse h1{color:#ffffff;}
+
+.inverse h2{color: #aaaaa;} 
+
+.inverse h3 {color: #D8D8D8;}
+
+/*Link color*/
+
+a, a > code {
+  color: #019cdb;
+}
