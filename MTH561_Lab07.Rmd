@@ -1,0 +1,156 @@
+---
+title: "Lab 7: Conditional Distributions, Independence, and $E[f(X)]$"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Section 5.3-5.4: Conditional Distributions and Independence
+
+1. (Q5.25 modified) Let $Y_1$ and $Y_2$ have the joint density function below.
+
+    a) Find the marginal density functions of $Y_1$ and $Y_2$. Do you recognize these?
+    b) Find the conditional density function of $Y_1$ given $Y_2$. Where is it defined?
+    c) Find the conditional density function of $Y_2$ given $Y_1$. Where is it defined?
+    d) Find $P(Y_1 >2 \vert Y_2 = 1)$
+    e) Are $Y_1$ and $Y_2$ independent? Why or why not?
+  
+$$f(y_{1},y_{2})=\begin{cases}
+e^{-(2y_{1}+3y_{2})} & y_{1}>0,\ y_{2}>0\\
+0 & else
+\end{cases}$$
+
+2. (Q5.26) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find the marginal density functions of $Y_1$ and $Y_2$.
+    b) Find the conditional density function of $Y_1$ given $Y_2$. Where is it defined?
+    c) Find the conditional density function of $Y_2$ given $Y_1$. Where is it defined?
+    d) Find $P(Y_1 \le 0.75 \vert Y_2 =0.5)$
+    e) Are $Y_1$ and $Y_2$ independent? Why or why not?
+
+$$f(y)=\begin{cases}
+4y_{1}y_{2} & \begin{array}{cc}
+0\le y_{1}\le1, & 0\le y_{2}\le1\end{array}\\
+0 & else
+\end{cases}$$
+
+3. (Q5.27) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find the marginal density functions of $Y_1$ and $Y_2$.
+    b) Find the conditional density function of $Y_1$ given $Y_2$. Where is it defined?
+    c) Find the conditional density function of $Y_2$ given $Y_1$. Where is it defined?
+    d) Find $P(Y_1 \le 0.75 \vert Y_2 =0.5)$
+    e) Are $Y_1$ and $Y_2$ independent? Why or why not?
+
+$$f(y)=\begin{cases}
+6(1-y_{2}) & 0\le y_1 \le y_2 \le 1\\
+0 & else
+\end{cases}$$
+
+4. (Q5.69) The length of life $Y$ for fuses of a certain type is modeled by an exponential distribution with mean 3 (measured in hundreds of hours).
+
+    a) If two such fuses have independent lengths of life, $Y_1$ and $Y_2$, find the joint probability density for $Y_1$ and $Y_2$. 
+    b) Suppose that the fuse represented by $Y_1$ is in use in a primary system, and the other fuse represented by $Y_2$ is in a backup system, and will only be used if the primary system fails. The total effective length of life is then $Y_1 + Y_2$. Find $P(Y_1 + Y_2 \le 1)$.
+
+
+# Section 5.5-5.6: Expected Values of Functions
+
+1. (Q5.76) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find $E(Y_1)$.
+    b) Find $V(Y_1)$.
+    c) Find $E(Y_1 - Y_2)$.
+
+$$f(y)=\begin{cases}
+4y_{1}y_{2} & \begin{array}{cc}
+0\le y_{1}\le1, & 0\le y_{2}\le1\end{array}\\
+0 & else
+\end{cases}$$
+
+2. (Q5.77) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find $E(Y_1)$ and $E(Y_2)$.
+    b) Find $V(Y_1)$ and $V(Y_2)$.
+    c) Find $E(Y_1 - 3Y_2)$.
+    
+$$f(y)=\begin{cases}
+6(1-y_{2}) & 0\le y_1 \le y_2 \le 1\\
+0 & else
+\end{cases}$$
+
+3. (Q5.87) Suppose that $Y_1$ and $Y_2$ are independent $\chi^2$ random variables with $\nu_1$ and $\nu_2$ degrees of freedom, respectively.
+  
+    a) Find $E(Y_1 + Y_2)$.
+    b) Find $V(Y_1 + Y_2)$.
+
+
+4. (Q6.14 modified) In a process of heating two types of copper power, the density function for the volume proportion of solid copper in a sample, $Y_1$, and the density function for $Y_2$, the proportion of type A crystals among the solid copper, were estimated. The variable $U=Y_1 Y_2$ gives the proportion of the sample volume due to type A crystals. If $Y_1$ and $Y_2$ are independent, find the probability density function for $U$.
+
+$$f_1(y_1)=\begin{cases}
+6y_1(1-y_{1}) & 0\le y_1 \le 1\\
+0 & else
+\end{cases}$$
+
+$$f_2(y_2)=\begin{cases}
+3y^2_2 & 0 \le y_2 \le 1\\
+0 & else
+\end{cases}$$
+
+---
+
+# Problems to submit
+
+__Question 1__: Consider two random variables $Y_1$ and $Y_2$ that have the following joint density function, where $-1 \le \alpha \le 1$.
+
+$$f(y_{1},y_{2})=\begin{cases}
+\left[1-\alpha\left\{ (1-2e^{-y_{1}})(1-2e^{-y_{2}})\right\} \right]e^{-y_{1}-y_{2}} & 0\le y_{1};\;0\le y_{2}\\
+0 & else
+\end{cases}$$
+
+This looks scary, but it turns out that both $Y_1$ and $Y_2$ have marginal exponential distributions with mean 1.
+
+Find:
+
+a) The conditional density function of $Y_1$ given $Y_2$. What are the bounds?
+b) $E(Y_1)$ and $E(Y_2)$
+c) $V(Y_1)$ and $V(Y_2)$
+d) $E(Y_1 - Y_2)$
+e) $V(Y_1 - Y_2)$ 
+
+__Question 2__: Let $Y_1$ and $Y$_2 have the following joint pdf:
+
+$$f(y_1,y_2)=\begin{cases}
+k(1-y_2)^{2} & 0<y_1<y_2<1\\
+0 & else
+\end{cases}$$
+
+a) Find the value of $k$ that makes this a valid pdf.
+b) Find the marginal density function of $Y_1$.
+c) Find the marginal density function of $Y_2$.
+d) Find the conditional density function of $Y_2$ given $Y_1$.

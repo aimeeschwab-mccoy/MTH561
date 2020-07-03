@@ -1,0 +1,138 @@
+---
+title: "Lab 8: Covariance, Linear Functions, and Conditional Expectations"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Section 5.7: Covariance
+
+1. (Q5.91) Let $Y_1$ and $Y_2$ have the joint probability density function given below. Show that $Cov(Y_1, Y_2)=0$. Does it surprise you that $Cov(Y_1, Y_2)$ is zero? Why or why not?
+
+$$f(y)=\begin{cases}
+4y_{1}y_{2} & \begin{array}{cc}
+0\le y_{1}\le1, & 0\le y_{2}\le1\end{array}\\
+0 & else
+\end{cases}$$
+
+2. (Q5.93) Let the discrete random variables $Y_1$ and $Y_2$ have the joint probability function below. Find $Cov(Y_1, Y_2)$. Are $Y_1$ and $Y_2$ independent?
+
+$$p(y_1, y_2) =\frac{1}{3}, (y_1, y_2) \in \{(-1,0), (0, 1), (1, 0)\}$$
+
+3. (Q5.96) Suppose that the random variables $Y_1$ and $Y_2$ have means $\mu_1$ and $\mu_2$ and variances $\sigma^2_1$ and $\sigma^2_2$. Show that:
+
+    a) $Cov(Y_1, Y_2) = Cov(Y_2, Y_1)$
+    b) $Cov(Y_1, Y_1) = \sigma^2_1$
+    
+4. (Q5.97) The random variables $Y_1$ and $Y_2$ are such that $E(Y_1) = 4$, $E(Y_2) = −1$, $V(Y_1) = 2$ and $V(Y_2) = 8$.
+
+    a) What is $Cov(Y_1 , Y_1)$?
+    b) Assuming that the means and variances are correct, as given, is it possible that $Cov(Y_1,Y_2 ) = 7$? [Hint: If $Cov(Y_1 , Y_2 ) = 7$, what is the value of $\rho$ , the coefficient of correlation?]
+    c) Assuming that the means and variances are correct, what is the largest possible value for $Cov(Y_1,Y_2)$? If $Cov(Y_1,Y_2)$ achieves this largest value, what does that imply about the relationship between $Y_1$ and $Y_2$?
+    d) Assuming that the means and variances are correct, what is the smallest possible value for $Cov(Y_1,Y_2)$? If $Cov(Y_1,Y_2)$ achieves this smallest value, what does that imply about the relationship between $Y_1$ and $Y_2$?
+    
+5. (Q5.99) If $c$ is any constant and $Y$ is a random variable such that $E(Y)$ exists, show that $Cov(c, Y)=0$.
+
+# Section 5.8: Expected Value and Variance of Linear Functions
+
+1. (Q5.103) Assume that $Y_1$, $Y_2$, and $Y_3$ are random variables with:
+
+$$\begin{array}{ccc}
+E(Y_{1})=2 & E(Y_{2})=-1 & E(Y_{3})=4\\
+V(Y_{1})=4 & V(Y_{2})=6 & V(Y_{3})=8\\
+Cov(Y_{1},Y_{2})=1 & Cov(Y_{1},Y_{3})=-1 & Cov(Y_{2},Y_{3})=0
+\end{array}$$
+
+Find $E(3Y_1+ 4Y_2 - 6Y_3)$ and $V(3Y_1+ 4Y_2 - 6Y_3)$.
+
+2. (Q5.105) Let $Y_1$ and $Y_2$ have the joint probability density function given below. Find $V(Y_1 -Y_2)$.
+
+$$f(y)=\begin{cases}
+4y_{1}y_{2} & \begin{array}{cc}
+0\le y_{1}\le1, & 0\le y_{2}\le1\end{array}\\
+0 & else
+\end{cases}$$
+
+3. (Q5.110) Suppose that $Y_1$ and $Y_2$ have correlation coefficient $\rho=0.2$. Find the correlation coefficient for:
+
+    a) $1+2Y_1$ and $3+4Y_2$
+    b) $1+2Y_1$ and $3-4Y_2$
+    c) $1-2Y_1$ and $3-4Y_2$
+
+4. (Q5.113) Suppose that $Y_1$ and $Y_2$ have correlation coefficient $\rho_{Y_1, Y_2}$, and for constants $a, b, c, d$ define $W_1 = a+bY_1$ and $W_2 = c+dY_2$. Show that the correlation coefficient between $W_1$ and $W_2$, $\rho_{W_1, W_2}$ is such that $\vert \rho_{Y_1, Y_2} \vert = \vert \rho_{W_1, w_2} \vert$. 
+    
+5. (Q5.111)  A retail grocery merchant figures that her daily gain $X$ from sales is a normally distributed random variable with $\mu = 50$ and $\sigma = 3$ (measurements in dollars). $X$ can be negative if she is forced to dispose of enough perishable goods. Also, she figures daily overhead costs $Y$ to have a gamma distribution with $\alpha = 4$ and $\beta = 2$. If $X$ and $Y$ are independent, find the expected value and variance of her net daily gain. Would you expect her net gain for tomorrow to rise above $70?
+
+
+
+5.89, 5.91, 5.94, 5.96, 5.97, 5.100, 5.102, 5.103, 5.105, 5.107, 5.114, 5.118, 5.133, 5.138, 5.139, 5.140, 5.141, 5.142
+
+# Section 5.11: Conditional Expectations
+
+3. (Q5.133) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find $E(Y_1 \vert Y_2 = y_2)$.
+    b) Find $E(Y_1)$ using your answer to (a).
+
+$$f(y)=\begin{cases}
+6(1-y_{2}) & 0\le y_1 \le y_2 \le 1\\
+0 & else
+\end{cases}$$
+
+2. (Q5.138) Assume that $Y$ denotes the number of bacteria per cubic centimeter in a particular liquid and that $Y$ has a Poisson distribution with parameter $\lambda$. Further assume that $\lambda$ varies from location to location and has a gamma distribution with parameters $\alpha$ and $\beta$, where $\alpha$ is a positive integer. If we randomly select a location, what is the
+
+    a) Expected number of bacteria per cubic centimeter?
+    b) Standard deviation of the number of bacteria per cubic centimeter?
+
+3. (Q5.141) Let $Y$ have an exponential distribution with mean $\lambda$ and the conditional density of $Y_2$ given $Y_1 = y_1$ be given below. Find the unconditional mean and variance of $Y_2$.
+
+$$f(y_2 \vert y_1)=\begin{cases}
+1/y_1 & 0\le y_2 \le y_1 \\
+0 & else
+\end{cases}$$
+    
+---
+
+# Problems to submit
+
+__Question 1__: How big or small can $Cov(Y_1, Y_2)$ be? Show that
+
+$$-\sqrt{V(Y_1)V(Y_2)} \le Cov(Y_1, Y_2) \le \sqrt{V(Y_1)V(Y_2)}$$
+
+__Question 2__: Assume that $Y_1$, $Y_2$, and $Y_3$ are random variables with:
+
+$$\begin{array}{ccc}
+E(Y_{1})=-4 & E(Y_{2})=0 & E(Y_{3})=-5\\
+V(Y_{1})=2 & V(Y_{2})=5 & V(Y_{3})=3\\
+Cov(Y_{1},Y_{2})=-1 & Cov(Y_{1},Y_{3})=-0.5 & Cov(Y_{2},Y_{3})=-1
+\end{array}$$
+
+Find $E(Y_1 + Y_2 - 2_3)$ and $V(Y_1 + Y_2 -2Y_3)$.
+
+__Question 3__: Show that $E[V(Y_1 \vert Y_2)] \le V(Y_1)$.

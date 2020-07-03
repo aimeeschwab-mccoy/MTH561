@@ -1,0 +1,107 @@
+---
+title: "Lab 9: Transformations"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Section 6.3: The Method of Distribution Functions
+
+1. (Q6.1) Let $Y$ be a random variable with probability density function given below.
+
+    a) Find the density function of $U_1=2Y-1$.
+    b) Find the density function of $U_2 = 1-2Y$.
+    c) Find the density function of $U_3=Y^2$.
+
+$$f(y)=\begin{cases}
+2(1-y) & 0\le y \le 1\\
+0 & else
+\end{cases}$$
+
+2. (Q6.5) The waiting time $Y$ until delivery of a new component for an industrial operation is uniformly distributed over the interval from 1 to 5 days. The cost of this delay is given by $U=2Y^2+3$. Find the probability density function for $U$.
+
+3. (Q6.7) Suppose that $Z$ has a standard normal distribution.
+
+    a) Find the density function of $U=Z^2$.
+    b) $U$ is a member of one of the named distribution families - which one? What is the parameter(s)?
+
+4. (Q6.17) A member of the power family of distributions has a distribution function (CDF) given as below, where $\alpha,\theta>0$.
+
+    a) Find the density function (pdf).
+    b) For fixed values of $\alpha$ and $\theta$, find a transformation $G(U)$ such that $G(U)$ has a distribution function of $F$ when $U$ possesses a $Uniform(0, 1)$ distribution.
+    c) Given that a random sample of size 5 from a uniform distribution on the interval $(0, 1)$ yielded the values 0.2700, 0.6901, 0.1413, 0.1523, and 0.3609, use the previous transformation to give values associated with a random variable with a $Power(\alpha=2, \theta=4)$ distribution.
+    
+$$F(y)=\begin{cases}
+0 & y<0\\
+\left(\frac{y}{\theta}\right)^{\alpha} & 0\le y\le\theta\\
+1 & y>0
+\end{cases}$$
+
+# Section 6.4: The Method of Transformations
+
+1. (Q6.23) Let $Y$ be a random variable with probability density function given below. Use the method of transformation to find the densities of $U_1, U_2, U_3$.
+
+    a) $U_1=2Y-1$
+    b) $U_2 = 1-2Y$
+    c) $U_3=Y^2$
+
+$$f(y)=\begin{cases}
+2(1-y) & 0\le y \le 1\\
+0 & else
+\end{cases}$$
+
+2. (Q6.26) The Weibull density function is given below. In this distribution, $\alpha, m>0$ can be considered constants. This density function is often used for the lengths of life of physical systems. Find:
+
+    a) The density function of $U=Y^m$.
+    b) $E(Y^k)$ for any positive integer $k$.
+
+$$f(y)=\begin{cases}
+\frac{1}{\alpha}my^{m-1}e^{-y^{m}/\alpha} & y>0\\
+0 & else
+\end{cases}$$
+
+3. (Q6.27) Let $Y$ have an exponential distribution with mean $\beta$. Prove that $W = \sqrt{Y}$ has a $Weibull(\alpha=\beta, m=2)$ distribution.
+
+4. Let $Y$ have a $Uniform(0, 1)$ distribution. Show that $U=-2ln(Y)$ has an exponential distribution with mean 2.
+
+	
+---
+
+# Problems to submit
+
+__Question 1__: Suppose that $Y \sim Gamma(\alpha, \beta)$ and that $c>0$ is an unknown constant.
+
+  a) Derive the density function of $U=cY$.
+  b) Identify the distribution and parameter(s) of $U$.
+  c) In a gamma distribution, the parameters $\alpha$ and $\beta$ are often referred to as "shape" and "scale" parameters respectively. How do the shape and scale parameters for $Y$ compare to those for $U$?
+  
+__Question 2__: The waiting time $Y$ until delivery of a new component for an industrial operation is uniformly distributed over the interval from 1 to 5 days. The cost of this delay is given by $U=2Y^2+3$.
+
+  a) Find the probability density function for $U$ using the method of transformations.
+  b) Which method do you prefer - the method of distribution functions or the method of transformations? Explain your reasoning.

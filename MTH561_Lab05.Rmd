@@ -1,0 +1,143 @@
+---
+title: "Lab 5: Continuous Distributions"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Sections 4.2-4.3: pdfs, CDFs, $E(Y)$ and $V(Y)$
+
+1. (Q4.1) let $Y$ be a random variable with $p(y)$ given in the table below.
+
+    a) Find the cumulative distribution function, $F(y)$.
+    b) Sketch the CDF.
+
+$y$|1|2|3|4
+---|---|---|---|---
+$p(y)$|0.4|0.3|0.2|0.1
+
+2. (Q4.11) Suppose that $Y$ possesses the density function below.
+
+    a) Find the value of $c$ that makes $f(y)$ a valid probability distribution.
+    b) Find $F(y)$.
+    c) Graph $f(y)$ and $F(y)$.
+    d) Use $F(y)$ to find $P(1 \le Y \le 2)$.
+    e) Find $E(Y)$ and $V(Y)$.
+
+$$f(y)=\begin{cases}
+cy & 0\le y\le2\\
+0 & else
+\end{cases}$$
+
+
+
+3. (Q4.15) As a measure of intelligence, mice are timed when going through a maze to reach a reward of food. The time (in seconds) required for any mouse is a random variable $Y$ with a density function given below.
+
+    a) Find $F(y)$.
+    b) Find $P(1 < Y < 1.5)$.
+    c) Find $E(Y)$ and $V(Y)$.
+    
+$$f(y)=\begin{cases}
+\frac{c}{y^{2}} & y\ge 1\\
+0 & else
+\end{cases}$$
+
+
+4. (Q4.17 & Q4.21) Supose $Y$ has the density function below.
+
+    a) Find $c$ such that $f(y)$ is a valid density function.
+    b) Find $F(Y)$.
+    c) Find $E(Y)$.
+    d) Find $V(Y)$.
+    
+$$f(y)=\begin{cases}
+cy^{2}+y & 0\le y\le1\\
+0 & else
+\end{cases}$$
+
+
+5. (Q4.24) If $Y$ is a continuous random variable with density function $f(y)$, prove that $V(Y) = E(Y^2) - [ E(Y) ] ^2$
+    
+# Section 4.4: Uniform Distribution
+
+1. (Q4.41) A random variable $Y$ has a $Uniform(\theta_1, \theta_2)$. Derive the variance of $Y$.
+
+2. (Q4.43) A circle of radius $r$ has area $A=\pi r^2$. If a random circle has a radius that is uniformly distributed on the interval (0, 1), what are the mean and variance of the area of the circle?
+
+3. (Q4.45) Upon studying low bids for shipping contracts, a microcomputer manufacturing company finds that intrastate contracts have low bids that are uniformly distributed between 20 and 25, in units of thousands of dollars. Find the probability that the low bid on the next intrastate shipping contract...
+
+    a) Is below $22,000.
+    b) Is in excess of $24,000.
+
+# Section 4.5: Normal Distribution
+
+1. (Q4.58) Find the following probabilities for a standard normal random variable.
+
+    a) $P(0\le Z\le 1.2)$
+    b) $P(-0.9 \le Z \le 0)$
+    c) $P(0.3 \le Z \le 1.56)$
+
+2. (Q4.61) What is the median of a normally distributed random variable with mean $\mu$ and standard deviation $\sigma$? Use words to justify your answer (no formulas!).
+
+3. (Q4.63) A company that manufactures and bottles apple juice uses a machine that automatically fills 16-ounce bottles. There is some variation, however, in the amounts of liquid dispensed into the bottles that are filled. The amount dispensed has been observed to be approximately normally distributed with mean 16 ounces and standard deviation 1 ounce. Find the proportion of bottles that will contain:
+
+    a) More than 17 ounces.
+    b) Between 15.5 and 16.5 ounces.
+    
+4. (Q4.71) Wires manufactured for use in a computer system are specified to have resistances between 0.12 and 0.14 ohms. The actual measured resistances of the wires produced by company A have a normal probability distribution with mean 0.13 ohm and standard deviation 0.005 ohm.
+
+    a) What is the probability that a randomly selected wire from company A’s production will meet the specifications?
+    b) If four of these wires are used in each computer system and all are selected from com- pany A, what is the probability that all four in a randomly selected system will meet the specifications?
+    
+5. (Q4.73) The width of bolts of fabric is normally distributed with mean 950 mm (millimeters) and
+standard deviation 10 mm.
+
+    a) What is the probability that a randomly chosen bolt has a width of between 947 and 958 mm?
+    b) What is the appropriate value for C such that a randomly chosen bolt has a width less than C with probability .8531?
+
+6. (Q4.75) A soft-drink machine can be regulated so that it discharges an average of $\mu$ ounces per cup. If the ounces of fill are normally distributed with standard deviation 0.3 ounce, give the setting for $\mu$ so that 8-ounce cups will overflow only 1% of the time.
+
+
+---
+
+# Problems to submit
+
+__Question 1__: A random variable $X$ has pdf $$f(x)=ce^x$$ for $-2<x<2$.
+
+1. Find $c$. 
+2. Find $F(X)$.
+3. Find $P(X<-1)$.
+4. Find $P(-1<X<1)$.
+5. Find $E(X)$.
+6. Find $V(X)$.
+
+__Question 2__: One method of arriving at economic forecasts is to use a consensus approach. A forecast is obtained from each of a large number of analysts; the average of these individual forecasts is the consensus forecast. Suppose that the individual 2016 January prime interest-rate forecasts of all economic analysts are approximately normally distributed with mean 7% and standard deviation 2.6%. If a single analyst is randomly selected from among this group, what is the probability that the analyst's forecast of the prime interest rate will
+
+1. Exceed 11%?
+2. Be less than 9%?

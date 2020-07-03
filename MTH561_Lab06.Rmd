@@ -1,0 +1,170 @@
+---
+title: "Lab 6: More Continuous Distributions"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Section 4.6: Gamma Distribution
+
+1. (Q4.89) The operator of a pumping station has observed that demand for water during early afternoon hours has an approximately exponential distribution with mean 100 cfs (cubic feet per second).
+
+    a) Find the probability that the demand will exceed 200 cfs during the early afternoon on a randomly selected day.
+    b) What water-pumping capacity should the station maintain during early afternoons so that the probability that demand will exceed capacity on a randomly selected day is only 0.01?
+
+2. (Q4.91) If $Y \sim Exponential$ and $P(Y >2)=0.0821$, find:
+
+    a) $\beta = E(Y)$
+    b) $P(Y\le 1.7)$
+
+3. (Q4.93) Historical evidence indicates that times between fatal accidents on scheduled American domestic passenger flights have an approximately exponential distribution. Assume that the mean time between accidents is 44 days.
+
+    a) If one of the accidents occurred on July 1 of a randomly selected year in the study period, what is the probability that another accident occurred that same month?
+    b) What is the variance of the times between accidents?
+
+4. (Q4.97) A manufacturing plant uses a specific bulk product. The amount of product used in one day can be modeled by an exponential distribution with $\beta = 4$ (measurements in tons). Find the probability that the plant will use more than 4 tons on a given day.
+
+5. (Q4.103) Explosive devices used in mining operations produce nearly circular craters when detonated. The radii of these craters are exponentially distributed with mean 10 feet. Find the mean and variance of the areas produced by these explosive devices.
+
+6. (Q4.105) Four-week summer rainfall totals in a section of the Midwest United States have approximately a gamma distribution with $\alpha= 1.6$ and $\beta = 2.0$.
+
+    a) Find the mean and variance of the four-week rainfall totals.
+    b) What is the probability that the four-week rainfall total exceeds
+4 inches?
+
+7. (Q4.110) Suppose $Y$ has the probability density function given below. Find $E(Y)$ and $V(Y)$ without integrating.
+
+$$f(y)=\begin{cases}
+4y^{2}e^{-2y} & y>0\\
+0 & else
+\end{cases}$$
+
+# Section 4.7: Beta Distribution
+
+1. (Q4.123) The relative humidity $Y$, when measured at a particular location, has the probability density function below.
+
+    a) Find $k$ such that $f(y)$ is a valid pdf.
+    b) Find the 95-th percentile of relative humidity.
+    c) Find the mean and variance of relative humidity.
+    
+$$f(y)=\begin{cases}
+k y^3 (1-y)^2 & 0\le y\le 1\\
+0 & else
+\end{cases}$$
+
+2. (Q4.127) Show that if $Y$ has a beta distribution with $\alpha=\beta = 1$, then $Y$ has a uniform distribution over (0, 1). That is, the uniform distribution over the interval (0, 1) is a special case of a beta distribution.
+
+3. (Q4.131) Errors in measuring the time of arrival of a wave front from an acoustic source sometimes have an approximate beta distribution. Suppose that these errors, measured in microseconds, have approximately a beta distribution with $\alpha = 1$ and $\beta = 2$.
+
+    a) What is the probability that the measurement error in a randomly selected instance is less than 0.5 $\mu s$?
+    b) Give the mean and standard deviation of the measurement errors.
+    
+# Section 5.2: Bivariate Distributions
+
+1. (Q5.1) Contracts for two construction jobs are randomly assigned to one or more of three firms, A, B, and C. Let $Y_1$ denote the number of contracts assigned to firm A and $Y_2$ the number of contracts assigned to firm B. Recall that each firm can receive 0, 1, or 2 contracts.
+
+    a) Find the joint probability function for $Y_1$ and $Y_2$.
+    b) Find $F(1,0)$.
+
+2. (Q5.7) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find the value of $k$ such that this is a valid pdf.
+    b) Find the joint distribution function $F(y_1, y_2)$.
+    c) Find $P(Y_1 \le 1/2, Y_2 \le 3/4)$.
+
+$$f(y)=\begin{cases}
+ky_{1}y_{2} & \begin{array}{cc}
+0\le y_{1}\le1, & 0\le y_{2}\le1\end{array}\\
+0 & else
+\end{cases}$$
+
+3. (Q5.9) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+    a) Find the value of $k$ such that this is a valid pdf.
+    b) Find the joint distribution function $F(y_1, y_2)$.
+    c) Find $P(Y_1 \le 3/4, Y_2 \ge 1/2)$.
+
+$$f(y)=\begin{cases}
+k(1-y_{2}) & 0\le y_1 \le y_2 \le 1\\
+0 & else
+\end{cases}$$
+
+---
+
+# Problems to submit
+
+__Question 1__: Suppose $Y$ has the probability density functions given below. For each one, find $E(Y)$ and $V(Y)$  and find the constant $c$ such that the pdf is valid __without integrating__.
+
+a) 
+
+$$f(y)=\begin{cases}
+c y^{4}e^{-y} & y>0\\
+0 & else
+\end{cases}$$
+
+b) 
+
+$$f(y)=\begin{cases}
+c y^4 (1-y)^2 & 0\le y\le 1\\
+0 & else
+\end{cases}$$
+
+c) 
+
+$$f(y)=\begin{cases}
+c e^{-0.5(y-1)^2} & y>0\\
+0 & else
+\end{cases}$$
+
+d) 
+
+$$f(y)=\begin{cases}
+c y^{1/2}e^{-y/2} & y^2>0\\
+0 & else
+\end{cases}$$
+
+e) 
+
+
+$$f(y)=\begin{cases}
+c e^{-2y} & y>0\\
+0 & else
+\end{cases}$$
+
+__Question 2__: 2. (Q5.7) Let $Y_1$ and $Y_2$ have the joint probability density function given below.
+
+a) Find the value of $k$ such that this is a valid pdf.
+b) Find the joint distribution function $F(y_1, y_2)$.
+
+
+$$f(y)=\begin{cases}
+ky_{1}(1-y_{2}) & \begin{array}{cc}
+0\le y_{1}\le1, & 0\le y_{2}\le1\end{array}\\
+0 & else
+\end{cases}$$

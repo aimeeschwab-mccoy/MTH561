@@ -1,0 +1,111 @@
+---
+title: "Lab 4: Identifying Discrete Distributions and Using RStudio"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+
+
+# Section 3.6: Negative Binomial Distribution
+
+1. (Q3.90 and 3.91) The employees of a firm that manufactures insulation are being tested for indications of asbestos in their lungs. The firm is requested to send three employees who have positive indications of asbestos on to a medical center for further testing. 
+
+    a) If 40% of the employees have positive indications of asbestos in their lungs, find the probability that ten employees must be tested in order to find three positives.
+    b) Find the expected value and variance of the total cost of conducting the tests necessary to locate the three positives.
+
+2. (Q3.97) A geological study indicates that an exploratory oil well should strike oil with probability 0.2.
+
+    a) What is the probability that the first strike comes on the third well drilled?
+    b) What is the probability that the third strike comes on the seventh well drilled?
+    c) What assumptions did you make to obtain the answers to parts (a) and (b)?
+    d) Find the mean and variance of the number of wells that must be drilled if the company wants to set up three producing wells.
+
+
+# Section 3.7: Hypergeometric Distribution
+
+1. (Q3.103) A warehouse contains ten printing machines, four of which are defective. A company selects five of the machines at random, thinking all are in working condition. What is the probability that all five of the machines are nondefective?
+
+2. (Q3.105) In southern California, a growing number of individuals pursuing teaching credentials are choosing paid internships over traditional student teaching programs. A group of eight candidates for three local teaching positions consisted of five who had enrolled in paid internships and three who enrolled in traditional student teaching programs. All eight candidates appear to be equally qualified, so three are randomly selected to fill the open positions. Let $Y$ be the number of internship trained candidates who are hired.
+
+    a) Does $Y$ have a binomial or hypergeometric distribution? Why?
+    b) Find the probability that two or more internship trained candidates are hired.
+    c) What are the mean and standard deviation of $Y$?
+
+3. (Q3.107)  Seed are often treated with fungicides to protect them in poor draining, wet environments. A small-scale trial, involving five treated and five untreated seeds, was conducted prior to a large-scale experiment to explore how much fungicide to apply. The seeds were planted in wet soil, and the number of emerging plants were counted. If the solution was not effective and four plants actually sprouted, what is the probability that
+
+    a) all four plants emerged from treated seeds?
+    b) three or fewer emerged from treated seeds?
+    c) at least one emerged from untreated seeds?
+
+# Section 3.8: Poisson Distribution
+
+1. (Q3.121) Let $Y$ denote a random variable with a $Poisson(\lambda=2)$ distribution. Find:
+
+a) $P(Y=4)$
+b) $P(Y \ge 4)$
+c) $P(Y < 4)$
+d) $P(Y \ge 4 \vert Y \ge 2)$
+
+2. (Q3.123) The random variable $Y$ has a Poisson distribution and is such that $p(0)=p(1)$. What is $p(2)$?
+
+3. (Q3.127) The number of typing errors made by a typist has a Poisson distribution with an average of four errors per page. If more than four errors appear on a given page, the typist must retype the whole page. What is the probability that a randomly selected page does not need to be retyped?
+
+---
+
+# Problems to submit
+
+A common challenge for probability students is identifying which probability distribution is the best choice for a given problem! This set of exercises give you practice identifying the distribution, and using RStudio to find appropriate probabilities.
+
+For each of the following problems, 
+
+1. Identify the distribution and its parameters.
+2. Calculate the requested probability, $E(X)$, or $V(X)$.
+
+__Question 1__: At a certain manufacturing company, approximately 5% of the products are defective. Find the probability that the third defective is the 20th one sampled.
+
+__Question 2__: An assembly line produces products that they put into boxes of 50. The inspector then randomly picks three items inside a box to see if they are defective. In a box containing four defectives, they want to find the probability that at least one of the three sampled items is defective.
+
+__Question 3__: When rolling a pair of dice, we often care about the sum of the two dice. Find the expected number of rolls that we perform before we get our first sum of 7.
+
+__Question 4__: The ACT is a standardized test that many students take in order to enter college. Suppose that at a certain Midwestern university, four out of five students take the ACT. How many students in a class of 30 would we expect to have taken the ACT?
+
+__Question 5__: A husband has seven tasks on his to-do list, and a wife has ten tasks on her to-do-list. Five tasks are randomly chosen from their combined 17 tasks. Find the expected number of tasks each spouse must do.
+
+__Question 6__: A certain stoplight is green approximately 31% of the time. Over the next few days, someone approaches this stoplight 8 times. Find the expected number of green lights.
+
+__Question 7__: A radio station's phone lines are all busy approximately 98% of the time when trying to call during a contest. Find the probability that the fifth time you call is the first time you get through during this contest.
+
+__Question 8__: A state trooper has found that about 15% of the cars he pulls over on I-80 are from out of state. Find the probability that more than 40 of the next 50 cars he pulls over are registered in Nebraska.
+
+__Question 9__: The passing rate on the Nebraska drivers' license exam is 72%. What is the expected number of times a test taker will have to take the exam in order to pass?
+
+__Question 10__: A student is taking a true/false test consisting of 15 questions. The student has an approximately 75% chance of getting any individual question correct. What is the probability that the student gets at least 9 of the 15 questions correct?
+
+__Question 11__: A company has a pool of 25 applicants (10 male and 15 female) for a particular job. There are 3 openings. Find the probability that none of these positions are filled by female applicants.

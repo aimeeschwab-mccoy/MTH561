@@ -1,0 +1,90 @@
+---
+title: "Lab 11: Sampling Distributions and the Central Limit Theorem"
+subtitle: 'MTH 561: Mathematical Statistics I'
+date: "Last updated: `r Sys.Date()`"
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 2
+      toc_float: TRUE
+      css: style_MTH561.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+# library(htmltools)
+# 
+# footer <- div(
+#   style = "font-size: 8pt; text-align: right; width: 100%; padding-right: 12pt;", 
+#   span(class = "pageNumber"), "/", span(class = "totalPages")
+# )
+# 
+# pagedown::chrome_print(
+#   "MTH561_Lab01.html", 
+#   options = list(
+#     displayHeaderFooter = TRUE, 
+#     footerTemplate = format(footer, indent = FALSE),
+#     marginTop = 0.4,
+#     marginBottom = 0.4
+#   )
+# )
+```
+
+# Section 7.2: Sampling Distributions Related to the Normal Distribution
+
+1. (Q7.9) The amount of fill dispensed by a bottling machine is normally distributed with $\sigma=1$ ounce. Bottles are to be randomly selected from the output of the machine and used to calculate $\bar{Y}$.
+
+    a) If $n=16$, what is $P(\vert \bar{Y}-\mu \vert \le 0.3)$?
+    b) Repeat part (a) for $n=25, 36, 49, 64$.
+    c) How does $P(\vert \bar{Y}-\mu \vert \le 0.3)$ change as $n$ changes?
+
+2. (Q7.10) The amount of fill dispensed by a bottling machine is normally distributed with $\sigma=2$ ounces. Bottles are to be randomly selected from the output of the machine and used to calculate $\bar{Y}$.
+
+    a) If $n=16$, what is $P(\vert \bar{Y}-\mu \vert \le 0.3)$?
+    b) Repeat part (a) for $n=25, 36, 49, 64$.
+    c) How does $P(\vert \bar{Y}-\mu \vert \le 0.3)$ change as $n$ changes?
+    d) How has increasing the standard deviation changed the probabilities?
+
+3. (Q7.11) A forester studying the effects of fertilization on certain pine forests in the Southeast is interested in estimating the average basal area of pine trees. In studying basal areas of similar trees for many years, he has discovered that these measurements (in square inches) are normally distributed with standard deviation approximately 4 square inches. If the forester samples $n = 9$ trees, find the probability that the sample mean will be within 2 square inches of the population mean.
+
+
+4. (Q7.15) Suppose that $X_1, ..., X_m$ and $Y_1, ..., Y_n$ are independent random samples, with $X_i \sim Normal(\mu_1, \sigma^2_1)$ and $Y_j \sim Normal(\mu_2, \sigma^2_2)$.
+
+    a) How is the difference between the sample means, $\bar{X}-\bar{Y}$ distributed? Give the distribution and its parameter(s).
+    b) Suppose that $\sigma^2_1=2$, $\sigma^2_2=2.5$, and $m=n$. Find the sample sizes such that $\bar{X}-\bar{Y}$ will be within 1 unit of $\mu_1-\mu_2$ with probability 0.95.
+
+5. (Q7.20) Find $E(S^2)$ and $V(S^2)$ when $Y_1, ..., Y_n$ is a random sample from a normal distribution with mean $\mu$ and variance $\sigma^2$.
+
+6. (Q7.33) Use the structures of $T$ and $F$ given in the text/slides, respectively, to argue that if $T$ has a $t$ distribution with $\nu$ df, then $U = T^2$ has an $F$ distribution with 1 numerator degree of freedom and $\nu$ denominator degrees of freedom.
+
+7. (Q7.37) Let $Z_1, ..., Z_5$ be a random sample of size 5 from a $Normal(0, 1)$ population, and let $\bar{Z}$ denote their sample mean. Let $Z_6$ be another independent standard normal. Find the distributions of:
+
+    a) $$W=\sum_{i=1}^{5}Z_{i}^{2}$$
+    b) $$U=\sum_{i=1}^{5}(Z_{i}-\bar{Z})^{2}$$
+    c) $$U + Z_6^2$$
+
+
+# Section 7.3: Central Limit Theorem
+
+1. (Q7.43) An anthropologist wishes to estimate the average height of men for a certain race of people. If the population standard deviation is assumed to be 2.5 inches and if she randomly samples 100 men, find the probability that the difference between the sample mean and the true population mean will not exceed 0.5 inch.
+
+2. (Q7.45) Workers employed in a large service industry have an average wage of \$7.00 per hour with a standard deviation of \$0.50. The industry has 64 workers of a certain ethnic group. These workers have an average wage of \$6.90 per hour. Is it reasonable to assume that the wage rate of the ethnic group is equivalent to that of a random sample of workers from those employed in the service industry? [Hint: Calculate the probability of obtaining a sample mean less than or equal to \$6.90 per hour.]
+
+3. (Q7.57) Twenty-five heat lamps are connected in a greenhouse so that when one lamp fails, another takes over immediately. (Only one lamp is turned on at any time.) The lamps operate independently, and each has a mean life of 50 hours and standard deviation of 4 hours. If the greenhouse is not checked for 1300 hours after the lamp system is turned on, what is the probability that a lamp will be burning at the end of the 1300-hour period?
+
+4. (Q7.62) The times that a cashier spends processing individual customer’s order are independent random variables with mean 2.5 minutes and standard deviation 2 minutes. What is the approximate probability that it will take more than 4 hours to process the orders of 100 people?
+
+---
+
+# Problems to submit
+
+__Question 1__: Ammeters produced by a manufacturer are marketed under the specification that the standard deviation of gauge readings is no larger than 0.2 amp. One of these ammeters was used to make ten independent readings on a test circuit with constant current. If the sample variance of these ten measurements is 0.065 and it is reasonable to assume that the readings are normally distributed, do the results suggest that the ammeter used does not meet the marketing specifications? [Hint: Find the approximate probability that the sample variance will exceed 0.065 if the true population variance is 0.04.]
+
+__Question 2__: If $Y$ is a random variable that has an $F$ distribution with $\nu_1$ numerator and $\nu_2$ denominator degrees of freedom, show that $U = 1/Y$ has an $F$ distribution with $\nu_2$ numerator and $\nu_1$ denominator degrees of freedom.
+
+__Question 3__: The fracture strength of tempered glass averages 14 (measured in thousands of pounds per square inch) and has standard deviation 2.
+
+a) What is the probability that the average fracture strength of 100 randomly selected pieces of this glass exceeds 14.5?
+b) Find an interval that includes, with probability 0.95, the average fracture strength of 100 randomly selected pieces of this glass.
+
