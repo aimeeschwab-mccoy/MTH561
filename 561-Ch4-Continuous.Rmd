@@ -1,0 +1,1010 @@
+---
+title: 'Ch. 4: Continuous Random Variables'
+#subtitle: "<span style = 'font-size: 90%;'>Sections 2.1-2.6</span>"
+author: "MTH 561: Probability Theory"
+date: "Last updated: `r Sys.Date()`"
+#institute: '`r icon::fa("twitter")` AimeeSMcCoy <br> `r icon::fa("envelope")` aimeeschwab-mccoy@creighton.edu'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      titleSlideClass: ['left', 'middle', 'inverse']
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse
+
+# 4.2: pdfs and CDFs
+
+
+- Probability _density_ functions, $f(y)$
+
+--
+
+- Continuous probabilities
+
+--
+
+- Cumulative distribution functions, $F(y)$
+
+---
+
+```{css, include=FALSE}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-setup, include=FALSE}
+cols <- c("#0054a6", "#95d2f3")
+
+library(xaringanthemer)
+library(xaringanExtra)
+style_duo_accent(primary_color = "#0054a6",
+                 secondary_color = "#f1fffe",
+  header_font_google = google_font("Source Sans Pro"),
+  text_font_google = google_font("Source Sans Pro"))
+
+#xaringanExtra::use_logo(
+#  image_url = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Creighton_University_seal.svg/1200px-Creighton_University_seal.svg.png"
+#)
+
+
+xaringanExtra::use_tachyons()
+
+xaringanExtra::use_tile_view()
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, cache=TRUE)
+
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+```
+
+
+## Probability density functions
+
+A __continuous random variable__ $Y$ is a random variable that takes values over a continuous set. 
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+Let $Y$ be a continuous random variable. Then a function $f$ is a __probability density function (pdf)__ of $Y$ if
+
+1. $f(y)\ge0$ for all $-\infty<y<\infty$
+2. $\int_{-\infty}^{\infty}f(y)dx=1$
+3. For $S\subseteq \mathbb{R}$, $$P(X\in S)=\int_{S} f(y)dx$$
+]
+
+---
+
+## Probability density functions
+
+Say we want to find $P(a<Y<b)$, then
+
+$$P(a<Y<b)=\int_{a}^{b} f(y)dx$$
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: For any continuous random variable $Y$ and constant $a$, $P(X=a)=0$. Why?
+]
+
+---
+
+## Probability density functions
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Find $c$ such that $f(y)$ is a valid pdf.
+
+$$f(y)=\begin{cases}
+cy^{2} & -1<y<2\\
+0 & else
+\end{cases}$$
+]
+
+---
+
+## Probability density functions
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Using the $c$ you just found, find $P(Y>1)$.
+
+$$f(y)=\begin{cases}
+cy^{2} & -1<y<2\\
+0 & else
+\end{cases}$$
+
+]
+
+---
+
+## Probability density functions
+
+```{r}
+x <- seq(from=-1, to=2, length=1000)
+fx <- x^2/3
+
+data <- tibble(x, fx)
+
+data %>% ggplot(aes(x=x, y=fx)) + geom_line(col=cols[1]) + labs(x='y', y='f(y)')
+```
+
+---
+
+## pdf versus pmf?
+
+- Both pdfs and pmfs give measures of how likely a particular value is.
+- $f(y)$ is _not_ the probability that $Y=y$. Instead, $f(y)$ measures probability "density".
+
+---
+
+## Probability density functions
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Suppose the random time $T$ of a radioactive emission is proportional to a decaying exponential function of the form $e^{-\lambda t}$ for $t>0$, where $\lambda>0$ is a constant. Find the pdf of $T$.
+]
+
+---
+
+## Cumulative distribution functions
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+Let $Y$ be a random variable. The __cumulative distribution function (CDF)__ of $Y$ is
+
+$$F(y)=P(Y\le y)$$
+
+for all real numbers $Y$.
+
+For continuous $Y$, 
+
+$$F(y)=\int_{-\infty}^{y} f(t)dt$$
+]
+
+---
+
+## Cumulative distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Suppose the random time $T$ of a radioactive emission is proportional to a decaying exponential function of the form $e^{-\lambda t}$ for $t>0$, where $\lambda>0$ is a constant. Find the CDF of $T$.
+]
+
+---
+
+## Cumulative distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Let $f(y)=2ye^{-y^2}$ for $y>0$. Find $f(y)$.
+]
+
+```{r}
+x <- seq(from=-1, to=2, length=1000)
+fx <- 2*x*exp(-x^2)
+
+data <- tibble(x, fx)
+
+data %>% ggplot(aes(x=x, y=fx)) + geom_line(col=cols[1]) + labs(x='y', y='f(y)')
+```
+
+---
+
+## Cumulative distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: Find an expression for $P(a<Y<b)$ in terms of the CDF.
+
+]
+
+---
+
+## Cumulative distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $Y$ have the pdf below. Find $f(y)$ and $P(0.5<Y<1.5)$.
+
+$$f(y)=\begin{cases}
+\frac{2}{5} & 0<y\le1\\
+\frac{2y}{5} & 1\le y<2\\
+0 & else
+\end{cases}$$
+]
+
+---
+
+## Cumulative distribution functions
+
+```{r}
+x <- seq(from=-0.5, to=2.5, length=1000)
+fx <- ifelse(x<0, 0, ifelse(x<1, 0.4, ifelse(x<2, 2*x/5, 0)))
+Fx <- ifelse(x<0, 0, ifelse(x<1, 2*x/5, ifelse(x<2, (x^2+1)/5, 1)))
+data <- tibble(x, fx, Fx)
+
+p1 <- data %>% ggplot(aes(x=x, y=fx)) + geom_line(col=cols[1]) + labs(x='y', y='f(y)')
+
+p2 <- data %>% ggplot(aes(x=x, y=Fx)) + geom_line(col=cols[1]) + labs(x='y', y='F(y)')
+
+p1+p2
+
+```
+
+---
+
+## Cumulative distribution functions
+
+A function $F$ is a cumulative distribution function if it satisfies the following properties.
+
+1. $\lim_{y\rightarrow-\infty}F(y)=0$
+2. $\lim_{y\rightarrow+\infty}F(y)=1$
+3. If $x\le y$ then $F(x) \le F(y)$
+4. For all real $a$, $\lim_{y\rightarrow a+}F(y)=F(a)$ (right-continuity)
+
+---
+class: inverse
+
+# 4.3-4.4: Uniform distribution, $E(Y)$ and $V(Y)$
+
+
+- Uniform distribution
+
+--
+
+- Expected value and variance of a continuous random variable
+
+--
+
+- Exponential distribution
+
+---
+
+## Uniform distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A random variable $Y$ is __uniformly distributed on $(a, b)$__ if the density function of $Y$ is
+
+$$f(y)=\frac{1}{b-a}$$
+
+for $a<y<b$ and 0 otherwise. $$Y\sim Uniform(a, b)$$
+]
+
+---
+
+## Uniform distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Beth is travelling from Omaha to Denver, which is a distance of 540.7 miles. She plans to stop at Kearney (which is 185 miles from Omaha), but she falls asleep immediately in the car. When she wakes up, what is the probability that she is past Kearney?]
+
+---
+
+## Uniform distribution
+
+$$F(y)=P(Y\le y)=\begin{cases}
+0 & y\le a\\
+\frac{y-a}{b-a} & a<y\le b\\
+1 & y>b
+\end{cases}$$
+
+---
+
+## Expectation and variance
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+For a continuous random variable $Y$ with pdf $f(y)$,
+
+$$E(Y)=\int_{-\infty}^{\infty} yf(y)df$$
+
+$$V(Y)=\int_{-\infty}^{\infty}(y-E(Y)^2)f(y)dx$$
+]
+
+--
+
+- To find $E(Y)$ and $V(Y)$ for a continuous random variable, integrate.
+
+---
+
+## Uniform distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y\sim Uniform(a, b)$. Find $E(Y)$ and $V(Y)$.
+]
+
+---
+
+## Expectation and variance
+
+.bg-washed-green.b--green.ba.ph3[
+Properties of $E(Y)$ and $V(Y)$ hold for continuous random variables:
+
+- $E[aX+b]=aE(X)+b$
+- $E[X+Y] = E(X)+E(Y)$
+- $V(X)=E(X^2)-E(X)^2$
+- $V[aX+b]=a^2 V(X)$
+- $E[g(x)] = \int_{-\infty}^{\infty} g(x)f(y)dx$
+]
+
+---
+
+## Exponential distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A random variable $Y$ has an __exponential distribution with parameter $\lambda>0$__ if
+
+$$f(y)=\lambda e^{-\lambda y}$$
+
+for $y>0$ and 0 otherwise. 
+
+$$Y\sim Exponential(\lambda)$$
+
+]
+
+---
+
+## Exponential distribution
+
+Properties:
+
+$$F(y)=1-e^{-\lambda x}$$
+
+$$E(X)=\frac{1}{\lambda}$$
+
+$$V(X)=\frac{1}{\lambda^2}$$
+
+---
+
+## Exponential distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: An IT help desk receives phone calls throughout the day. The time between calls is modeled with an exponential distribution with mean 4 minutes. A call just arrived. What is the probability that no call will be received in the next 5 minutes?
+
+]
+
+---
+
+## Exponential distribution
+
+```{r, echo=1, fig.height=3, fig.width=4}
+pexp(5, rate=1/4)
+
+x <- seq(from=0, to=10, length=1000)
+fx <- dexp(x, rate=1/4)
+data <- tibble(x, fx)
+
+data %>% ggplot(aes(x=x, y=fx)) + geom_line(col=cols[1]) + labs(x='y', y='f(y)')
+```
+
+---
+
+## Exponential distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: The exponential distribution has a special property called "memoryless ness". Let $Y\sim Exponential(\lambda)$ and $0<s<t$. Find $P(X>s+t\vert X>s)$.
+]
+
+---
+
+## Exponential distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Historical evidence indicates that times between fatal accidents on scheduled American domestic passenger flights have an approximately exponential distribution. Assume that the mean time between accidents is 44 days.
+
+1. If one of the accidents occurred on July 1 of a randomly selected year in the study period, what is the probability that another accident occurred that same month?
+2. What is the variance of the times between accidents?
+]
+
+---
+
+## Exponential distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: One-hour carbon monoxide concentrations in air samples from a large city have an approximately exponential distribution with mean 3.6 ppm (parts per million). Find the probability that the carbon monoxide concentration exceeds 9 ppm during a randomly selected one-hour period. How does this probability change if a new traffic control strategy can reduce the mean carbon monoxide concentration to 2.5 ppm?
+
+]
+
+---
+
+## Exponential distribution
+
+```{r}
+x <- seq(from=0, to=10, length=1000)
+fx <- dexp(x, rate=1/3.6)
+fx2 <- dexp(x, rate=1/2.5)
+
+data <- tibble(x=c(x, x),
+               fx=c(fx, fx2),
+               lambda=as.factor(c(rep(3.6, 1000), rep(2.5, 1000))))
+
+data %>% ggplot(aes(x=x, y=fx)) + 
+  geom_line(aes(col=lambda)) + 
+  labs(x='y', y='f(y)') 
+```
+
+---
+class: inverse
+
+# 4.5: Normal distribution
+
+
+- Normal distribution: properties and finding probabilities
+
+--
+
+- Empirical Rule
+
+---
+
+## Normal distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A random variable $Y$ is said to follow a __normal distribution with parameters $\mu$ and $\sigma$__ if the density function of $Y$ is
+
+$$f(y)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-(y-\mu)^2}{2\sigma^2}}$$
+
+for any real $\mu$ and $\sigma>0$. $Y$ is defined along the entire real line.
+
+$$Y\sim Normal(\mu, \sigma^2)$$
+]
+
+---
+
+## Normal distribution
+
+```{r}
+x <- seq(from=-10, to=10, length=1000)
+fx <- dnorm(x, mean=0, sd=1)
+fx2 <- dnorm(x, mean=2, sd=2)
+fx3 <- dnorm(x, mean=-1, sd=3)
+
+data <- tibble(x=c(x, x, x),
+               fx=c(fx, fx2, fx3),
+               lambda=c(rep('a', 1000), rep('b', 1000), rep('c', 1000)))
+
+data %>% ggplot(aes(x=x, y=fx)) + 
+  geom_line(aes(col=lambda)) + 
+  labs(x='y', y='f(y)') +  
+  guides(col=FALSE)
+```
+
+---
+
+## Normal distribution
+
+The integral of $f(y)$ has no _closed-form solution_, meaning it can't be analytically integrated.
+
+- Use numerical approximations to find $P(a<X<b)$ and $f(y)$.
+
+R functions: 
+
+- `dnorm(__, mean=__, sd=__)`
+- `pnorm(__, mean=__, sd=__)`
+- `qnorm(__, mean=__, sd=__)`
+- `rnorm(__, mean=__, sd=__)`
+
+---
+
+## Using `norm` functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Find the following probabilities for $Y\sim Normal(\mu=2, \sigma^2=9)$.
+
+1. $P(Y<0)$
+2. $P(Y<2)$
+3. $P(Y\le 2)$
+4. $P(Y>-1)$
+5. $P(Y<5)$
+6. $P(-1<Y<5)$
+7. $P(Y<0 \cap Y>6)$
+]
+
+---
+
+## Using `norm` functions
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Find the following quantiles for $Y \sim Normal(\mu=2, \sigma^2=9)$.
+
+1. $P(Y<q)=0.40$
+2. $P(Y<q)=0.10$
+3. $P(Y<q)=0.99$
+4. Find $\pm q$ such that $P(-q<Y<q)=0.80$
+5. Find $\pm q$ such that $P(-q<Y<q)=0.50$
+]
+
+---
+
+## Normal distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: The final exam scores in a physics class will be scaled according to a normal distribution with mean 75 and standard deviation 10. What proportion of students will score between an 80 and 90 on the exam?
+]
+
+---
+
+## Normal distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: The weekly amount of money spent on maintenance and repairs by a company was observed over a long period of time to be approximately normal with mean 400 and standard deviation 20. If 450 is budgeted for next week, what is the probability that the actual costs will exceed the budgeted amount?
+]
+
+---
+
+## Normal distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: A production plant makes bearings with diameters that are normally distributed with mean 3.0005 inches and standard deviation 0.0010 inch. Specifications require the bearing diameters to lie in the interval 3.000 $\pm$ 0.0020 inches. Those outside the interval are considered scrap and must be discarded. What fraction of total production will be scrapped?
+]
+
+---
+
+## Normal distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: The GPAs of a large population of college students are distributed $Normal(\mu=2.4, \sigma=0.8)$. 
+
+1. What fraction of the students will have a GPA greater than 3.0?
+2. Students with a GPA less than 1.9 are put on academic probation. What is the probability that a random student will be on academic probation?
+
+]
+
+---
+
+## $z$-score
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A common tool for _standardizing_ normal distributions is a $z$__-score__.
+
+$$z=\frac{xy-\mu}{\sigma}$$
+
+- Compare values from two different normal distributions
+- Common "unit of measure" for distance from the mean
+]
+
+---
+
+## Linear functions of a normal
+
+Let $X$ be normally distributed with mean $\mu$ and variance $\sigma^2$. For constants $a\ne 0$ and $b$, the random variable $Y=aX+b$ is normally distributed with mean 
+
+$$E(Y)=aE(X)+b$$ 
+
+and variance
+
+$$V(Y)=a^2 V(X)$$
+
+---
+
+## $z$-score
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: How are $z$-scores distributed?
+]
+
+---
+
+## Special case: standard normal
+
+```{r}
+x <- seq(from=-4, to=4, length=1000)
+fx <- dnorm(x, mean=0, sd=1)
+fx2 <- dnorm(x, mean=2, sd=2)
+fx3 <- dnorm(x, mean=-1, sd=3)
+
+data <- tibble(x=c(x, x, x),
+               fx=c(fx, fx2, fx3),
+               lambda=c(rep('a', 1000), rep('b', 1000), rep('c', 1000)))
+
+data %>% filter(lambda=='a') %>%
+  ggplot(aes(x=x, y=fx)) + 
+  geom_line() + 
+  labs(x='y', y='f(y)')
+```
+
+---
+
+## $z$-score
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Z$ denote a standard normal random variable. Find:
+
+1. $P(Z>2)$
+2. $P(-1.5 < Z < 1.5)$
+3. $P(0<Z<1.73)$
+]
+
+
+---
+
+## Empirical Rule
+
+A "rule of thumb" for working with the normal distribution states:
+
+```{r}
+data %>% filter(lambda=='a') %>%
+  ggplot(aes(x=x, y=fx)) + 
+  geom_line() + 
+  labs(x='y', y='f(y)', title='Empirical Rule') +
+  geom_segment(aes(x = -1, y = 0, xend = -1, yend = dnorm(-1)), col='#f8766d') + 
+  geom_segment(aes(x = 1, y = 0, xend = 1, yend = dnorm(-1)), col='#f8766d')+
+  geom_segment(aes(x = -2, y = 0, xend = -2, yend = dnorm(-2)), col='#00ba38') + 
+  geom_segment(aes(x = 2, y = 0, xend = 2, yend = dnorm(-2)), col='#00ba38')+
+  geom_segment(aes(x = -3, y = 0, xend = -3, yend = dnorm(-3)), col='#619cff') + 
+  geom_segment(aes(x = 3, y = 0, xend = 3, yend = dnorm(-3)), col='#619cff') + 
+  ylim(-0.2, 0.5) + 
+  geom_curve(aes(x=-1, y=0, xend=1, yend=0), col='#f8766d') + 
+  geom_curve(aes(x=-2, y=0, xend=2, yend=0), col='#00ba38') + 
+  geom_curve(aes(x=-3, y=0, xend=3, yend=0), col='#619cff') + 
+  geom_segment(aes(x=-4, y=0, xend=4, yend=0))
+```
+
+---
+
+## Empirical Rule
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Use the standard normal distribution to verify the Empirical Rule.
+]
+
+```{r, echo=TRUE}
+pnorm(1, mean=0, sd=1)-pnorm(-1, mean=0, sd=1)
+pnorm(2, mean=0, sd=1)-pnorm(-2, mean=0, sd=1)
+```
+
+---
+
+## Empirical Rule
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: What value of $z$ satisfies $P(|Z|<z)=0.95$ exactly?
+]
+
+```{r, eval=FALSE, echo=TRUE}
+qnorm(___, mean=___, sd=___)
+```
+
+
+---
+
+## Sum of independent normals
+
+.bg-washed-green.b--green.ba.ph3[
+Let $Y_1, Y_2, ..., Y_n$ be a sequence of independent normal random variables with 
+
+$$Y_k \sim Normal(\mu_k, \sigma^2_k)$$
+
+for $k \in {1, .., n}$. Then,
+
+$$Y_1+Y_2+...+Y_n \sim Normal(\mu_1 + ... + \mu_n, \sigma^2_1 + ... + \sigma^2_n)$$
+]
+
+---
+
+## Sum of independent normals
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: Prove this result.
+]
+
+
+---
+
+## $E(\bar{Y})$ and $V(\bar{Y})$
+
+.bg-washed-purple.b--purple.ba.ph3[
+
+__Result__: Let $\bar{Y} = \frac{Y_1+Y_2+...+Y_n}{n}$ represent the sample average, or mean. Suppose $Y_1, Y_2, ..., Y_n$ are identically and independently distributed (not necessarily normal!), with common mean $\mu$ and variance $\sigma^2$. Find $E(\bar{Y})$ and $V(\bar{Y})$.
+]
+
+---
+
+## $E(\bar{Y})$ and $V(\bar{Y})$
+
+.bg-washed-purple.b--purple.ba.ph3[
+__Result__: Let $\bar{Y} = \frac{Y_1+Y_2+...+Y_n}{n}$ represent the sample average, or mean. Suppose $Y_1, Y_2, ..., Y_n$ are identically and independently __normally distributed__, with common mean $\mu$ and variance $\sigma^2$. Find $E(\bar{Y})$ and $V(\bar{Y})$.
+]
+
+---
+
+## Normal distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: The GPAs of a large population of college students are distributed $Normal(\mu=2.4, \sigma=0.8)$. 
+
+1. Suppose that three students are randomly selected from the student body. What is the probabilty that all three will have a GPA greater than 3.0?
+2. What is the probability that the sample mean GPA will be greater than 3.0?
+]
+
+---
+class: inverse
+
+# 4.6: Gamma distribution
+
+
+- Gamma distribution: properties and finding probabilities
+
+--
+
+- Special cases: exponential, chi-squared
+
+---
+
+## Gamma distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A random variable $Y$ has a __gamma distribution with parameters $a>0$ and $\lambda>0$__ if the density function of $Y$ is
+
+$$f(y)=\frac{1}{\Gamma(a)}\lambda^a y^{a-1} e^{-\lambda x}$$
+
+for $y>0$. The "gamma function", $\Gamma(a)$ is 
+
+$$\Gamma(a)=\int_0^\infty t^{a-1} e^{-t} dt$$
+
+$$Y\sim Gamma(a, \lambda)$$
+
+]
+
+---
+
+## Gamma distribution
+
+```{r}
+x <- seq(from=0, to=20, length=1000)
+fx <- dgamma(x, shape=1, scale=1)
+fx2 <- dgamma(x, shape=1, scale=2)
+fx3 <- dgamma(x, shape=3, scale=2)
+fx4 <- dgamma(x, shape=5, scale=2)
+
+data <- tibble(x=rep(x, 4),
+               fx=c(fx, fx2, fx3, fx4),
+               dist=c(rep('Gamma(1, 1)', 1000), rep('Gamma(1, 2)', 1000), 
+                        rep('Gamma(3, 2)', 1000), rep('Gamma(5, 2)', 1000)))
+
+data %>% ggplot(aes(x=x, y=fx)) + 
+  geom_line(aes(col=dist)) + 
+  labs(x='y', y='f(y)') 
+```
+
+---
+
+## Gammas and exponentials
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Compare $f(y)$ for the Gamma distribution to $f(y)$ for the Exponential distribution. How do you think they're related?
+]
+
+---
+
+## Gammas and exponentials
+
+.bg-washed-green.b--green.ba.ph3[
+Let $E_1, E_2, ..., E_n$ be an iid sequence of exponential random variables with parameter $\lambda$. Let $S=E_1+E_2+...+E_n$. Then, $S\sim Gamma(n, \lambda)$.
+]
+
+- We'll prove this result later in the course.
+
+---
+
+## Gamma distribution
+
+__Properties of the Gamma distribution__: 
+
+$$E(Y)=\frac{a}{\lambda}$$
+
+$$V(Y)=\frac{a}{\lambda^2}$$
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y\sim Gamma(a, \lambda)$. Show $E(Y)=\frac{a}{\lambda}$.
+]
+
+
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Four-week summer rainfall totals in a Midwestern state have an approximately $Gamma(a=1.6, \lambda=0.5)$ distribution. Find the mean and variance of the four-week rainfall totals.
+
+]
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: What is the probability that the four-week rainfall total exceeds four inches?]
+
+```{r, echo=TRUE}
+pgamma(4, shape=1.6, scale=1/0.5)
+```
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Annual incomes for heads of household in a city have an approximate $Gamma(a=20, \lambda=1/1000)$ distribution. Find the mean and variance of these incomes.
+]
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Annual incomes for heads of household in a city have an approximate $Gamma(a=20, \lambda=1/1000)$ distribution. Would you expect to find many incomes in excess of $30,000?
+]
+
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Another special case of the $Gamma$ distribution is the __chi-square distribution__: $Y \sim \chi^2(\nu)=Gamma(a=\nu/2, \lambda=1/2)$.
+
+
+1. Find $E(Y)$ and $V(Y)$.
+2. Write the pdf of $Y$.
+]
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: Suppose that a random variable $Y$ has the pdf
+
+$$f(y)=ky^3 e^{-y/2} \ \ y>0$$
+
+- What value of $k$ makes $f(y)$ a valid pdf?
+
+]
+
+--
+
+- Which _named distribution_ is $f(y)$?
+
+---
+
+## Gamma distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose that a random variable $Y$ has the pdf
+
+$$f(y)=ky^3 e^{-y.2} \ \ y>0$$
+
+- Find $E(Y)$ and $V(Y)$.
+]
+
+---
+class: inverse
+
+# 3.7: Beta distribution
+
+
+- Beta distribution: properties and finding probabilities
+
+
+---
+
+## Beta distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A random variable $Y$ has a __beta distribution with parameters $a>0$ and $b>0$__ if the density function of $Y$ is
+
+$$f(y)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}y^{a-1}(1-y)^{b-1}$$
+
+$$Y\sim Beta(a, b)$$
+
+]
+
+---
+
+## Beta distribution
+
+```{r}
+x <- seq(from=0, to=1, length=1000)
+beta1 <- dbeta(x, shape1=2, shape2=2)
+beta2 <- dbeta(x, shape1=0.5, shape2=0.5)
+beta3 <- dbeta(x, shape1=3, shape2=2)
+beta4 <- dbeta(x, shape1=5, shape2=2)
+
+data <- tibble(x=rep(x, 4),
+               fx=c(beta1, beta2, beta3, beta4),
+               dist=c(rep('Beta(2, 2)', 1000), rep('Beta(0.5, 0.5)', 1000), 
+                        rep('Beta(3, 2)', 1000), rep('Beta(5, 2)', 1000)))
+
+data %>% ggplot(aes(x=x, y=fx)) + 
+  geom_line(aes(col=dist)) + 
+  labs(x='y', y='f(y)') + ylim(0, 5)
+```
+
+
+---
+
+## Beta and uniform distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $a=1$ and $b=1$. What happens to the beta distribution?
+]
+
+---
+
+## Beta distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $Y\sim Beta(a, b)$. Find $E(Y)$.
+]
+
+---
+
+## Beta distribution
+
+__Properties__: 
+
+$$E(X)=\frac{a}{a+b}$$
+
+$$V(X)=\frac{ab}{(a+b)^2(a+b+1)}$$
+
+
+---
+
+## Beta distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A gasoline wholesale distributor has bulk storage tanks that hold fixed supplies and are filled every Monday. The wholesaler wants to know how much of the tank is sold in a given week. Over many weeks, a $Beta(a=4, b=3)$ distribution has been found to be a reasonable approximation. Find the probability that the wholesaler will sell at least 90% of her stock in a given week.
+]
+
+---
+
+## Beta distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Over many weeks, a $Beta(a=4, b=3)$ distribution has been found to be a reasonable approximation. Find the probability that the wholesaler will sell at least 90% of her stock in a given week.
+]
+
+---
+
+## Beta distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Over many weeks, a $Beta(a=4, b=3)$ distribution has been found to be a reasonable approximation. Find the probability that the wholesaler will sell at least 90% of her stock in a given week. Find the expected value and variance of the amount sold.
+]
+
+---
+
+## Beta distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: The percentage of impurities per batch in a chemical product is a random variable with density function
+
+$$f(y)=12y^2(1-y) \ \ 0\le y\le 1$$
+Show that $Y$ follows a Beta distribution, and find $E(Y)$ and $V(Y)$. 
+]
+
+---
+
+## Beta distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: The percentage of impurities per batch in a chemical product is a random variable with density function
+
+$$f(y)=12y^2(1-y) \ \ 0\le y\le 1$$
+
+A batch with more than 40% impurities cannot be sold - what's the probability a batch will be rejected?
+]

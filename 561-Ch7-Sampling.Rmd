@@ -1,0 +1,491 @@
+---
+title: 'Ch. 7: Sampling and the Central Limit Theorem'
+#subtitle: "<span style = 'font-size: 90%;'>Sections 2.1-2.6</span>"
+author: "MTH 561: Probability Theory"
+date: "Last updated: `r Sys.Date()`"
+#institute: '`r icon::fa("twitter")` AimeeSMcCoy <br> `r icon::fa("envelope")` aimeeschwab-mccoy@creighton.edu'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      titleSlideClass: ['left', 'middle', 'inverse']
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse
+
+# 7.2: Sampling distributions
+
+- Law of large numbers (weak and strong)
+
+--
+
+- Sampling distributions
+
+---
+
+```{css, include=FALSE}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-setup, include=FALSE}
+cols <- c("#0054a6", "#95d2f3")
+
+library(xaringanthemer)
+library(xaringanExtra)
+style_duo_accent(primary_color = "#0054a6",
+                 secondary_color = "#f1fffe",
+  header_font_google = google_font("Source Sans Pro"),
+  text_font_google = google_font("Source Sans Pro"))
+
+#xaringanExtra::use_logo(
+#  image_url = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Creighton_University_seal.svg/1200px-Creighton_University_seal.svg.png"
+#)
+
+
+xaringanExtra::use_tachyons()
+
+xaringanExtra::use_tile_view()
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, cache=TRUE)
+
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+```
+
+## Law of Large Numbers
+
+For $n=1, 2, ...$, let $S_n = Y_1+Y_2+...+Y_n$. The __Law of Large Numbers__ states that the sample average 
+
+$$\bar{Y}=\frac{S_n}{n} \rightarrow \mu$$ 
+
+as $n\rightarrow \infty$. 
+
+- How is this different from what we already know?
+
+---
+
+## Distribution of $\bar{Y}$
+
+We know...
+
+- $E(\bar{Y})=\mu$
+- $V(\bar{Y})=\frac{\sigma^2}{n}$
+- If $Y \sim Normal$, then $\bar{Y} \sim Normal$ too
+
+- What happens to $V(\bar{Y})$ as $n\rightarrow \infty$?
+
+---
+
+## Distribution of $\bar{Y}$
+
+```{r}
+n <- 10000
+means10 <- rowMeans(matrix(rnorm(10*n),nrow=n))
+means30 <- rowMeans(matrix(rnorm(30*n),nrow=n))
+means50 <- rowMeans(matrix(rnorm(50*n),nrow=n))
+means100 <- rowMeans(matrix(rnorm(100*n),nrow=n))
+
+data <- tibble(means=c(means10, means30, means50, means100),
+               n = c(rep(10, n), rep(30, n), 
+                     rep(50, n), rep(100, n)))
+
+data %>% ggplot(aes(x=means)) +
+  geom_histogram(aes(fill=as.factor(n))) +
+  facet_wrap(~n) + guides(fill=FALSE)
+```
+
+---
+
+## Weak Law of Large Numbers
+
+There are two forms of the Law of Large Numbers, one with a stricter condition.
+
+.bg-washed-green.b--green.ba.ph3[
+__Weak Law of Large Numbers__: Let $Y_1, Y_2, ...$ be an iid sequence of random variables with finite mean $\mu$ and variance $\sigma^2$. For $n=1, 2, ...$, let $S_n=Y_1+Y_2+...+Y_n$. Then, 
+
+$$P(\vert \frac{S_n}{n}-\mu \vert \ge \epsilon) \rightarrow 0$$
+
+as $n\rightarrow \infty$.
+]
+
+---
+
+## Strong Law of Large Numbers
+
+.bg-washed-green.b--green.ba.ph3[
+__Strong Law of Large Numbers__: Let $Y_1, Y_2, ...$ be an iid sequence of random variables with finite mean $\mu$. For $n=1, 2, ...$, let $S_n=Y_1+Y_2+...+Y_n$. Then, 
+
+$$P(lim_{n\rightarrow \infty}\frac{S_n}{n}=\mu)=1$$
+]
+
+- We say that $\frac{S_n}{n}$ converges to $\mu$ with probability 1.
+
+---
+
+## Sampling distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A __sampling distribution__ is the probability distribution of a sample statistic.
+
+We've seen a few sample statistics before, and for some, found their distribution:
+
+- $\bar{Y}$
+- $\hat{p}$
+- $Y_{(1)}$
+- $Y_{(n)}$
+]
+
+When the number of observations in our sample, $n$, is sufficiently large, we have a nice result.
+
+---
+class: inverse
+
+# 7.3: Central Limit Theorem
+
+- Sampling distribution of the sample mean converges to...
+
+---
+
+## Central Limit Theorem
+
+.bg-washed-green.b--green.ba.ph3[
+
+__Central Limit Theorem__: Let $Y_1, Y_2, ..., Y_n$ be an iid sequence of random variables with finite mean $\mu$ and variance $\sigma^2$. Consider the sample mean $\bar{Y}$. __The distribution of the standardized sample mean converges to a standard normal random variable.__
+
+In other words, 
+
+$$P(\frac{\bar{Y}-\mu}{\frac{\sigma}{\sqrt{n}}} \le t) \rightarrow P(Z\le t)$$
+
+as $n\rightarrow \infty$, where $Z \sim Normal(0, 1)$.
+]
+
+---
+
+## Central Limit Theorem
+
+What do we need for the Central Limit Theorem to "kick in"?
+
+- Finite mean $\mu$ and variance $\sigma^2$
+- _Known_ mean $\mu$ and variance $\sigma^2$
+
+--
+
+What don't we need?
+
+- Normally distributed $Y$!
+
+The Central Limit Theorem applies for any $Y$, no matter the distribution.... eventually. 
+
+---
+
+## Central Limit Theorem
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Customers at a popular restaurant are waiting to be served. Waiting times are independent and exponentially distributed with mean 30 minutes. If 16 customers are waiting, what is the probability that their average wait is less than 25 minutes?
+]
+
+---
+
+## Central Limit Theorem
+
+How close is the Central Limit Theorem result to the actual distribution?
+
+```{r, echo=TRUE}
+n <- 10000
+sample_means <- rowMeans(matrix(rexp(n*16, rate=1/30), nrow=n))
+
+sum(sample_means<25)/n
+```
+
+---
+
+## Central Limit Theorem
+
+```{r, echo=TRUE}
+data <- tibble(means=sample_means)
+
+data %>% ggplot(aes(x=sample_means)) + 
+  geom_histogram() +
+  labs(x='Simulated average wait times')
+```
+
+---
+
+## Central Limit Theorem
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Over 2.7 million high school students took at least one AP Exam in 2017. The grade distribution for the Statistics, Calculus AB, and Calculus BC exams in 2017 is given below. 100 students who took the 2017 AP Statistics Exam are randomly selected. What is the probability that the average score is above 3?
+
+Score|5|4|3|2|1|N
+---|---|---|---|---|---|
+Statistics|0.136|0.159|0.248|0.202|0.255|215,840
+Calculus AB|0.187|0.180|0.208|0.220|0.204|316,099
+Calculus BC|0.426|0.181|0.199|0.141|0.053|132,514
+]
+
+---
+
+## Central Limit Theorem
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: 100 students who took the 2017 AP Statistics Exam are randomly selected. What is the probability that the average score is above 3?
+
+Score|5|4|3|2|1|N
+---|---|---|---|---|---|
+Statistics|0.136|0.159|0.248|0.202|0.255|215,840
+
+]
+
+---
+
+## Central Limit Theorem
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A bottling machine can be regulated so that it discharges an average of $\mu$ ounces per bottle. It has been observed that the amount of fill dispensed by the machine is normally distributed with $\sigma=1.0$ ounce. A sample of $n=9$ filled bottles is randomly selected from the output of the machine on a given day (all bottled with the same machine setting), and the ounces of fill are measured for each. 
+- Find the probability that the sample mean will be within 0.3 ounce of the true mean $\mu$ for the chosen machine setting.
+]
+
+---
+
+## Central Limit Theorem
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A bottling machine can be regulated so that it discharges an average of $\mu$ ounces per bottle. It has been observed that the amount of fill dispensed by the machine is normally distributed with $\sigma=1.0$ ounce. A sample of $n=9$ filled bottles is randomly selected from the output of the machine on a given day (all bottled with the same machine setting), and the ounces of fill are measured for each. 
+- How many observations should be included in the sample if we wish $\bar{Y}$ to be within 0.3 ounces of $\mu$ with probability 0.95?
+]
+
+---
+
+# 7.3: "Constructed" distributions
+
+- Distribution of the sample variance
+
+--
+
+- t-distribution
+
+-- 
+
+- F-distribution
+
+---
+
+## Sample variance
+
+.bg-washed-green.b--green.ba.ph3[
+Let $Y_{1},Y_{2},\ldots,Y_{n}$ be a random sample of size n from a normal distribution with mean $\mu$ and variance $\sigma^{2}$. Then $Z_{i}=\frac{(Y_{i}-\mu)}{\sigma}$ are independent, standard normal random variables, and 
+
+$$\sum_{i=1}^{n}Z_{i}^{2}=\sum_{i=1}^{n}\left(\frac{Y_{i}-\mu}{\sigma}\right)^{2}$$
+
+has a $\chi^{2}$ distribution with $n$ degrees of freedom, abbreviated $df$.
+]
+
+--
+
+- The $\chi^{2}$ distribution plays an important role in many inferential procedures, especially ones related to the variance and standard deviation. 
+
+---
+
+## Sample variance
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+For example, suppose we want to make an inference about the population variance $\sigma^{2}$ based on a random sample $Y_{1},Y{2},\ldots,Y_{n}$ from a normal population. A good estimator of $\sigma^{2}$ is the __sample variance__:
+
+$$S^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(Y_{i}-\bar{Y})^{2}$$
+]
+
+---
+
+## Sample variance
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__:
+Why use $n-1$ in the sample variance formula?
+
+$$S^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}$$
+]
+
+---
+
+## Sample variance
+
+.bg-washed-green.b--green.ba.ph3[
+Let $Y_{1},Y_{2},\ldots,Y_{n}$ be a random sample from a normal distribution with mean $\mu$ and variance $\sigma^{2}$. Then
+
+$$\frac{(n-1)S^{2}}{\sigma^{2}}=\frac{1}{\sigma^{2}}\sum_{i=1}^{n}(Y_{i}-\bar{Y})^{2}$$
+
+has a $\chi^{2}$ distribution with $(n-1)$ df. Also, $\bar{Y}$ and $S^{2}$ are independent random variables.
+]
+
+---
+
+## Sample variance
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Prove this result.
+]
+
+---
+
+## Sample variance
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: The ounces of liquid dispensed by a bottling machine are assumed to have a normal distribution with $\sigma^{2}=1$. Suppose that we plan to select a random sample of 10 bottles and measure the amount of fill in each bottle. If these 10 observations are used to calculate $S^{2}$, we might also want to find an interval of values that will include $S^{2}$ with a high probability. Find numbers $b_{1}$ and $b_{2}$ such that
+
+$$P(b_{1}\le S^{2}\le b_{2})=0.90$$
+]
+
+---
+
+## $t$ distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+Let $Z$ be a standard normal random variable and let $W$ be a $\chi^{2}$ distributed variable with $\nu$ degrees of freedom. Then, if $Z$ and $W$ are independent, 
+
+$$T=\frac{Z}{\sqrt{\frac{W}{\nu}}}$$
+
+is said to have a $t$ __distribution__ with $\nu$ df.
+]
+
+---
+
+## $t$ distribution
+
+- If $Y_{1},Y_{2},\ldots,Y_{n}$ are a random sample from a normal population with mean $\mu$ and variance $\sigma^{2}$, then we know $Z\sim Normal(0,1)$. 
+
+- We also know that $$W=\frac{(n-1)S^{2}}{\sigma^{2}}\sim\chi_{n-1}^{2}.$$
+
+Then, we can write $T$ as:
+
+$$T=\frac{Z}{\sqrt{\frac{W}{\nu}}}=\frac{\frac{\sqrt{n}(\bar{Y}-\mu)}{\sigma}}{\sqrt{\frac{\left[(n-1)S^{2}/\sigma^{2}\right]}{n-1}}}=\frac{\bar{Y}-\mu}{\frac{S}{\sqrt{n}}}$$
+
+---
+
+## Properties of the $t$ distribution
+
+```{r}
+x <- seq(from=-3, to=3, length=1000)
+norm <- dnorm(x, mean=0, sd=1)
+t1 <- dt(x, df=1)
+t3 <- dt(x, df=3)
+t5 <- dt(x, df=5)
+t10 <- dt(x, df=10)
+t25 <- dt(x, df=25)
+
+data <- tibble(x=rep(x, 6), 
+               fx=c(norm, t1, t3, t5, t10, t25),
+               dist=c(rep('Normal', 1000), 
+                      rep('df=1',1000), 
+                      rep('df=3', 1000),
+                      rep('df=5', 1000),
+                      rep('df=10',1000),
+                      rep('df=25', 1000)))
+
+data$dist <- fct_relevel(data$dist, 'df=1', 'df=3', 'df=5', 'df=10', 'df=25')
+data %>% ggplot(aes(x=x, y=fx)) + geom_line(aes(col=dist)) + labs(x='y', y='f(y)')
+```
+
+---
+
+## $t$ distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: The tensile strength for a type of wire is normally distributed with unknown mean $\mu$ and unknown variance $\sigma^{2}$. Six pieces of wire were randomly selected from a large roll; $Y_{i}$, the tensile strength for portion $i$, is measured for $i=1,2,\ldots,6$. The population mean $\mu$ and variance $\sigma^{2}$ can be estimated by $\bar{Y}$ and $S^{2}$, respectively. Because $\sigma_{\bar{Y}}^{2}=\frac{\sigma^{2}}{n}$, it follows that $\sigma_{\bar{Y}}^{2}$ can be estimated by $\frac{S^{2}}{n}$. Find the approximate probability that $\bar{Y}$ will be within $\frac{2S}{\sqrt{n}}$ of the true population mean.
+]
+
+---
+
+## $t$ distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A forester studying the effects of fertilization on pine forests in the Southeast is interested in estimating the average basal area of pine trees. In studying basal areas of similar trees, he discovered that these measurements (in square inches) are normally distributed with $s \approx 4$ inches. 
+
+- If the forester samples 6 trees, find the probability that the sample mean will be within 2 square inches of the population mean.
+]
+
+---
+
+## $t$ distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: A forester studying the effects of fertilization on pine forests in the Southeast is interested in estimating the average basal area of pine trees. In studying basal areas of similar trees, he discovered that these measurements (in square inches) are normally distributed with $s \approx 4$ inches. 
+
+- If the forester samples 12 trees, find the probability that the sample mean will be within 2 square inches of the population mean.
+]
+
+---
+
+## $F$ distribution
+
+Suppose we want to compare the variances of two normal populations based on information contained in independent random samples from the two populations. 
+
+Samples of size $n_{1}$ and $n_{2}$ are taken from the two populations with variances $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$, respectively. 
+
+If we calculate $S_{1}^{2}$ from the observations in sample 1 and $S_{2}^{2}$ from the observations in sample 2, then we have estimates of the population variances.
+
+---
+
+## $F$ distribution
+
+One way to compare the variances of the two populations is to use their ratio:
+
+$$\frac{S_{1}^{2}}{S_{2}^{2}}$$
+
+Consider a slightly modified ratio.
+
+$$\frac{\frac{S_{1}^{2}}{\sigma_{1}^{2}}}{\frac{S_{2}^{2}}{\sigma_{2}^{2}}}$$
+
+- This ratio follows an $F$ distribution with $(n_{1}-1)$ numerator degrees of freedom and $(n_{2}-1)$ denominator degrees of freedom. 
+- What value would we expect to see if the two populations have equal variances?
+
+---
+
+## $F$ distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+In general, let $W_{1}$ and $W_{2}$ be independent $\chi^{2}$ distributed random variables with $\nu_{1}$ and $\nu_{2}$ degrees of freedom respectively. Then
+
+$$F=\frac{\frac{W_{1}}{\nu_{1}}}{\frac{W_{2}}{\nu_{2}}}$$
+
+is said to have an $F$ distribution with $\nu_{1}$ numerator degrees of freedom and $\nu_{2}$ denominator degrees of freedom.
+]
+
+---
+
+## $F$ distribution
+
+Let's reconsider the modified ratio.
+
+$$\frac{\frac{S_{1}^{2}}{\sigma_{1}^{2}}}{\frac{S_{2}^{2}}{\sigma_{2}^{2}}}=\frac{\frac{\left[(n_{1}-1)S_{1}^{2}/\sigma_{1}^{2}\right]}{(n_{1}-1)}}{\frac{\left[(n_{1}-1)S_{2}^{2}/\sigma_{2}^{2}\right]}{(n_{2}-1)}}=\frac{\frac{W_{1}}{\nu_{!}}}{\frac{W_{2}}{\nu_{2}}}=F$$
+
+Then $$\frac{\frac{S_{1}^{2}}{\sigma_{1}^{2}}}{\frac{S_{2}^{2}}{\sigma_{2}^{2}}}$$ follows an $F$ distribution with $(n_{1}-1)$ numerator degrees of freedom and $(n_{2}-1)$ denominator degrees of freedom.
+
+---
+
+## Comparing sample standard deviations
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Take independent samples of size $n_1=10$ and $n_2=20$ from two normal populations with equal population variances. Find the number $b$ such that 
+
+$$P\left(\frac{S_{1}^{2}}{S_{2}^{2}}\le b\right)=0.95$$
+
+]
+
+---
+
+## Comparing sample standard deviations
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A "rule of thumb" for comparing the variances of two populations is to take the ratio of their standard deviations. If $s_1/s_2 <2$, it can be assumed that the populations have the same variance.
+
+Why does this rule of thumb "work"?
+]

@@ -1,0 +1,932 @@
+---
+title: 'Ch. 2: Probability'
+#subtitle: "<span style = 'font-size: 90%;'>Sections 2.1-2.6</span>"
+author: "MTH 561: Probability Theory"
+date: "Last updated: `r Sys.Date()`"
+#institute: '`r icon::fa("twitter")` AimeeSMcCoy <br> `r icon::fa("envelope")` aimeeschwab-mccoy@creighton.edu'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      titleSlideClass: ['left', 'middle', 'inverse']
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse
+
+# 2.1-2.4: Introduction to probability
+
+- Probability: definition and notation
+
+--
+
+- Probability and statistics
+
+--
+
+- Random experiments and events
+
+--
+
+- Axioms of Probability
+
+---
+
+```{css, include=FALSE}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-setup, include=FALSE}
+cols <- c("#0054a6", "#019cdb")
+
+library(xaringanthemer)
+library(xaringanExtra)
+style_duo_accent(primary_color = "#0054a6",
+                 secondary_color = "#f1fffe",
+  header_font_google = google_font("Source Sans Pro"),
+  text_font_google = google_font("Source Sans Pro"))
+
+#xaringanExtra::use_logo(
+#  image_url = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Creighton_University_seal.svg/1200px-Creighton_University_seal.svg.png"
+#)
+
+
+xaringanExtra::use_tachyons()
+
+xaringanExtra::use_tile_view()
+
+xaringanExtra::use_fit_screen()
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, cache=TRUE)
+
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+```
+
+## Probability and statistics
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Probability__: a branch of mathematics dealing with the collection, analysis, interpretation, and presentation of masses of numerical data
+
+]
+
+--
+
+Other definitions:
+
+- “the branch of the scientific method which deals with the data obtained by counting or measuring the properties of populations”
+- “essentially concerned with procedures for analyzing data, especially data that in some vague sense have a random character”
+
+
+---
+
+## Probability and statistics
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Statistics__: a theory of information and data, with decision-making (statistical inference) as its objective
+
+]
+
+--
+
+- Probability theorists assume  they know the structure of the population of interest and use that theory to compute the probability of obtaining a particular sample. _Is this realistic??_
+
+--
+
+- Statisticians use probability as a tool to translate data from a sample to inferences about a population.
+
+---
+
+## Experiments and events
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Experiment__: the process by which an observation is made
+
+- Experiments include observations from completely uncontrollable, or random, situations.
+
+]
+
+--
+
+__Examples__: tossing a coin, measuring a test score, determining bacteria per test sample.
+
+---
+
+## Experiments and events
+
+Experimental outcomes are called __events__, and can be split into one of two types.
+
+1. __Compound event__: includes multiple sample points, and can be decomposed into a subset of events.
+2. __Simple event__: includes only one sample point and cannot be decomposed into a subset of events.
+
+--
+
+The sample space $\Omega$ contains all possible sample points of an experiment.
+
+---
+
+## Discrete experiments
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+ __Discrete experiments__: experiments with a discrete sample space, containing either a finite or countable number of distinct sample events
+ ]
+
+- For discrete experiments, compound events are collections (sets) of sample points, or the unions of the events of single sample points.
+- A simple event $E$ is included in event $A$ if and only if $A$ occurs whenever $E$ occurs.
+
+---
+
+## Experiments and events
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: Consider a single toss of a balanced die. Possible events include:
+
+- $A$: observe an odd number
+- $B$: observe a number less than 5
+- $C$: observe a 2 or 3
+- $E_{1},\ldots,E_{6}$: observe a 1, ..., 6 respectively
+
+Sketch the sample space. Which events are compound events and which are simple events?
+
+]
+
+--
+
+![](ch2-venn1.png)
+
+---
+
+## Experiments and events
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: __P's Pizza Place__ offers three toppings: pineapple, pepperoni, and peppers. Customers can choose any combination of these toppings for their pizza.
+
+- List the sample space $\Omega$.
+- Assume all outcomes are equally likely. What is the probability the next pizza ordered has two toppings?
+
+]
+
+---
+
+## Experiments and events
+
+.blue[ 
+
+__Solution__: Start by making a list of toppings...
+
+- No toppings
+- Pineapple only
+- Pepperoni only
+- Peppers only
+- Pineapple and pepperoni
+- Pineapple and peppers
+- Pepperoni and peppers
+- All three toppings
+
+]
+
+--
+
+.blue[
+Probability of choosing two toppings: 
+
+$$P(2) = \frac{3}{8}$$
+]
+
+---
+
+## Axioms of Probability
+
+Let $P(A)$ denote the probability of event $A$. Then, the following three axioms must hold.
+
+1. $P(A)\ge 0$
+2. $P(\Omega)=\sum_{A\in\Omega}P(A)=1$
+3. If $A_{1}, A_{2},...$ form a sequence of pairwise mutually exclusive events in sample space $S$, then
+
+$$P\left(A_{1}\cup A_{2}\cup\ldots\right)=\sum_{i=1}^{\infty}P(A_{i})$$
+
+
+---
+
+## Axioms of Probability
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: A manufacturer has five (supposedly) identical computer terminals available for shipping. Unknown to the manufacturer, two of the five are defective. A shipping order calls for two of the terminals and is filled by randomly selecting two of the available five.
+
+1. List the sample space for this experiment.
+2. Let $A$ denote the event that the order is filled with two non-defective terminals. List the sample points in $A$. 
+3. Use a Venn diagram to illustrate event $A$.
+4. Assign probabilities to the simple events, using information about the experiment and satisfying the axioms of probability.
+5. Find the probability of event $A$.
+
+]
+
+---
+
+## Axioms of Probability
+
+.pull-left[
+
+
+.blue[ 
+
+__Solution__: The sample space has 10 elements. Let terminals "A" and "B" be the defective ones.
+
+The probability that the order is filled with __two defectives__ is 
+
+$$P(A) = \frac{1}{10}$$
+
+]
+
+]
+
+.pull-right[
+
+```{r, echo=FALSE}
+library(tidyverse)
+samplespace <- tribble(
+  ~Terminal1, ~Terminal2,
+  "A", "B",
+  "A", "C", 
+  "A", "D",
+  "A", "E",
+  "B", "C", 
+  "B", "D",
+  "B", "E", 
+  "C", "D",
+  "C", "E",
+  "D", "E"
+)
+
+library(kableExtra)
+
+samplespace %>% kable() %>%
+  kable_styling() %>%
+  row_spec(1, background = "#fcae91")
+```
+
+]
+
+---
+
+## Axioms of Probability
+
+.pull-left[
+
+
+.blue[ 
+
+__Solution__: The sample space has 10 elements. Let terminals "A" and "B" be the defective ones. Let $B$ represent the event that the order contains __at least one defectives__: 
+
+$$P(B) = \frac{7}{10}$$
+
+]
+
+]
+
+.pull-right[
+
+```{r, echo=FALSE}
+library(tidyverse)
+samplespace <- tribble(
+  ~Terminal1, ~Terminal2,
+  "A", "B",
+  "A", "C", 
+  "A", "D",
+  "A", "E",
+  "B", "C", 
+  "B", "D",
+  "B", "E", 
+  "C", "D",
+  "C", "E",
+  "D", "E"
+)
+
+library(kableExtra)
+
+samplespace %>% kable() %>%
+  kable_styling() %>%
+  row_spec(1:7, background = "#fdbe85")
+```
+
+]
+
+---
+
+## Axioms of Probability
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: A random experiment has three possible outcomes: $A$, $B$, and $C$. Let $P(A) = p$, $P(B)=p^2$, and $P(C)=2p$. What value of $p$ makes this a valid probability distribution?
+]
+
+---
+
+## Axioms of Probability
+
+.blue[
+
+__Solution__: In order for this to be a valid probability distribution, 
+
+$$0 \le P(A), P(B), P(C) \le 1$$
+
+and 
+
+$$P(A) + P(B) + P(C) =1$$
+
+]
+
+--
+
+.blue[
+
+$$p + p^2 + 2p =p^2 + 3p= 1$$
+
+]
+
+--
+
+.blue[
+Using the quadratic equation, choose the positive solution $p=0.302776$.
+
+$$P(A) = p = 0.302776$$ 
+
+$$P(B)=p^2 = 0.09167331$$ 
+
+$$P(C)=2p = 0.605552$$
+
+]
+
+---
+class: inverse
+
+# 2.5-2.6: Calculating probabilities
+
+- Sample-point method
+
+--
+
+- Probability rules
+
+    - Addition Rule
+    - Complement Rule
+    
+--
+
+- Counting rules
+
+    - mn Rule
+    - Permutations
+    - Combinations
+
+---
+
+## Sample-point method
+
+One method to calculate the probability of an event A in a discrete sample space is the __sample-point method__.
+
+1. Define the experiment and set up the notation.
+2. List the simple events associated with the experiment making up the sample space, $S$.
+3. Assign reasonable probabilities to the sample points in $S$, making sure the Axioms of Probability are satisfied.
+4. Define the event of interest $A$ as a specific collection of sample points.
+5. Find $P(A)$ by summing the probabilities of the sample points in $A$.
+
+---
+
+## Sample-point method
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example (The Last Banana)__: You decide to gamble for the last banana on the entire island. You'll roll two dice and if the biggest number is a 1, 2, 3, or 4 Player 1 wins. If the biggest number is a 5 or a 6, then Player 2 wins. Find the probability that each player wins the banana using the sample-point method. Which player do you want to be and why?
+
+]
+
+---
+
+## Set notation
+
+- $A\cup B$
+
+- $A\cap B$
+
+- $A^c$
+
+- $A \subset B$
+
+
+---
+
+## Review of set notation
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $S$ denote the set of all possible numerical observations for a single toss of a die. Let $A=\{1,2\}$, $B=\{1,3\}$, and $C$ represent the set of even numbers. Sketch a Venn diagram showing sets $S,A,B,C$. Find:
+
+1. $A\cup B$
+2. $A\cap C$
+3. $\bar{A}$
+4. $B\cup C$
+5. $B\cap C$
+
+]
+
+---
+
+## Addition Rule
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+The probability of the union of two events A and B is given by the __Addition Rule__.
+
+$$P(A\cup B)=P(A)+P(B)-P(A\cap B)$$
+
+- If A and B are __mutually exclusive__ events, $P(A\cap B)=0$ and 
+
+$$P(A\cup B)=P(A)+P(B)$$
+
+]
+
+---
+
+## Addition Rule
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: Suppose that 55% of all adults regularly consume coffee, 45% regularly consume carbonated soda, and 70% regularly consume at least one of these two products. What is the probability that a randomly selected adult regularly consumes both coffee and soda?
+
+]
+
+---
+
+## Addition Rule
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: The __Bonferroni Inequality__ states that for any two events $A$ and $B$, 
+
+$$P(A \cup B) \le P(A)+P(B)$$
+
+Prove this result.
+
+]
+
+---
+
+## Complement Rule
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+The Addition Rule can be used to show the __Complement Rule__ of probability.
+
+$$P(A)=1-P(\bar{A})$$
+
+]
+
+---
+
+## Complement Rule
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose that 55% of all adults regularly consume coffee, 45% regularly consume carbonated soda, and 70% regularly consume at least one of these two products. What is the probability that a randomly selected adult doesn't regularly consume at least one of these two products?
+
+]
+
+---
+
+## Probability rules
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: Suppose that $A$ and $B$ are two events such that $P(A)=0.6$ and $P(B)=0.3$. 
+
+1. Is it possible that $P(A\cap B)=0.1$? Why or why not?
+2. What is the smallest possible value for $P(A\cap B)$?
+3. Is it possible that $P(A\cap B)=0.7$? Why or why not?
+4. What is the largest possible value for $P(A\cap B)$?
+
+]
+
+---
+
+## $mn$ Rule
+  
+To find the probability of some event $A$, it's often necessary to list how many points are in the sample space $S$. This gets challenging, quickly!
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+$mn$ __rule__: With $m$ elements $a_{1},a_{2},\ldots,a_{m}$ in set $A$ and $n$ elements $b_{1},b_{2},\ldots,b_{n}$ elements in set $B$, it's possible to form $mn=m\times n$ pairs containing one element from each group.
+
+]
+
+– This can be extended to any number of sets!
+
+---
+
+## Counting rules
+  
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: Suppose the 2017 Honda Civic comes in five different styles, with four types of engines, with two types of transmissions, and in eight colors.
+
+1. How many cars would a dealer have to stock if he included one for each style-engine-transmission combination?
+2. How many would a distribution center have to carry if all colors of cars were stocked for each combination in part (1)?
+
+]
+
+---
+
+## Counting rules
+
+.bg-washed-blue.b--blue.ba.ph3[  
+__Example__: Consider an experiment that consists of recording the birthday for each of 20 randomly selected people. Ignoring leap years, assume there are only 365 distinct birthdays. Find the number of points in the sample space $S$ for this experiment. If we assume that each of the possible sets of the birthdays is equally likely, what's the probability that each person in the 20 has a different birthday?
+
+]
+
+---
+
+## Permutation Rule
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Permutation__: ordered arrangement of $r$ distinct objects 
+
+The number of ways ordering $n$ distinct objects taken $r$ at a time is denoted by $P_{r}^{n}$.
+
+$$P_{r}^{n}=n(n-1)(n-2)\ldots(n-r+1)=\frac{n!}{(n-r)!}$$
+]
+
+---
+
+## Counting rules
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Three employees will be chosen in a raffle, without replacement, from a bowl containing the names of 30 employees of a small company. Here are the rules:
+
+- The person whose name is drawn first will win $100
+- The second person will win $50
+- The third will win $25. 
+
+How many possible outcomes exist for this experiment?
+]
+
+---
+
+## Combination Rule
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Combinations__: the number of combinations of $n$ objects taken $r$ at a time, _if order does not matter_, is the number of subsets, each of size $r$, that can be formed from the $n$ objects. 
+
+$$\left(\begin{array}{c}
+n\\
+r
+\end{array}\right)=C_{r}^{n}=\frac{n!}{r!(n-r)!}$$
+
+]
+
+---
+
+## Counting rules
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: A study will be conducted at a hospital to determine the attitudes of nurses toward various administrative procedures. A sample of 10 nurses is to be selected from a total of the 90 nurses employed by the hospital. How many different samples of nurses can be selected? 
+]
+
+---
+
+## Counting rules
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: A student prepares for an exam by studying a list of 10 problems. She can solve 6 of them. For the exam, the instructor selects 5 problems at random from the 10 on the list. What is the probability that the student can solve all problems on the exam?
+]
+
+---
+
+## Permutation Rule
+
+The permutation rule can be extended to multiple groups. 
+
+The number of ways to partition n distinct objects into $k$ distinct groups containing $n_{1},n_{2},\ldots,n_{k}$ objects respectively, where each object appears in exactly one group and $\sum_{i=1}^{k}n_{i}=n$ is
+
+$$N=\left(\begin{array}{c}
+n\\
+n_{1}n_{2}\ldots n_{k}
+\end{array}\right)\frac{n!}{n_{1}!n_{2}!\ldots n_{k}!}$$
+
+---
+
+## Counting rules
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__: A labor dispute has arisen concerning the distribution of 20 laborers to four different construction jobs. Job 1 is considered very undesirable, and requires six workers. Job 2 requires four workers, and Jobs 3 and 4 require five workers each. The dispute arose over an alleged random distribution of the laborers to the jobs that placed all four minority employees on Job 1. In considering whether there was evidence of discrimination, a panel wanted to find the probability of this event. Determine the number of ways that workers could be randomly assigned to jobs. Find the probability of the observed event, if it is assumed that the laborers are randomly assigned. Is this sufficient evidence of discrimination?
+
+]
+
+---
+class: inverse
+
+# 2.7-2.8: Conditional probability and independence
+
+- Random variables
+
+--
+
+- Conditional probability
+    
+--
+
+- Independence
+
+--
+
+- Multiplication Rule
+    
+---
+
+## Random variables
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Random variable__: numerical values are assigned to the outcomes of a random experiment
+
+]
+
+- Can be discrete or continuous (we'll focus on discrete first)
+- $X$ denotes a random variable
+- $x$ denotes a possible value of that random variable
+
+---
+
+## Conditional probability
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+The __conditional probability__ of an event $A$, given that an event $B$ has occurred, is 
+
+$$P(A|B)=\frac{P(A\cap B)}{P(B)}$$
+
+provided that $P(B)>0$. 
+
+]
+
+- What do we mean by "conditional"?
+
+---
+
+## Conditional probability
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: Suppose a balanced die is tossed once. Find the probability of a 1, given that an odd number occurred.
+
+]
+
+---
+
+## Conditional probability
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: You're choosing movies to watch with your young nephew. There are 1,284 movies available to you on Netflix Kids, 272 of which are G-rated. Your nephew likes movies with puppets, which make up 94 of the G-rated movies. There are only 30 movies with puppets that are not G-rated. If you happen to pick a movie with puppets, what is the probability that it is G-rated?
+
+]
+
+---
+
+## Independence
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+Suppose that probability of the occurrence of event $A$ is unaffected by another event $B$. Then, events $A$ and $B$ are said to be __independent.__ 
+
+]
+
+--
+
+Events $A$ and $B$ are independent if any of the following properties holds:
+
+- $P(A|B)=P(A)$
+- $P(B|A)=P(B)$
+- $P(A\cap B)=P(A)P(B)$
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: If two events, $A$ and $B$ are such that $P(A)=0.5$, $P(B)=0.3$, and $P(A\cap B)=0.1$, then find the conditional probability $P(A|B)$. Are events $A$ and $B$ independent?
+
+]
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[  
+
+__Example__:  Three brands of coffee, X, Y, and Z, are to be ranked according to taste by a judge. Define the following events:
+
+- $A$: Brand X is preferred to Brand Y
+- $B$: Brand X is ranked best
+- $C$: Brand X is ranked second-best
+- $D$: Brand X is ranked third-best
+
+If the judge actually has no taste preferences and randomly assigns ranks to the brands, is event $A$ independent of events $B$, $C$, and $D$?
+
+]
+
+---
+
+## Multiplication Rule
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Multiplication Rule__: If A and B are __independent__, then:
+
+$$P(A\cap B)=P(A)P(B)$$ 
+
+]
+
+--
+
+- The Multiplication Rule can be extended to find the probability of the intersection of any number of events. 
+
+---
+
+## Multiplication Rule
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__:  Consider three random days in the semester. On Mondays, you wake up 45 minutes before class, and the probability that you get to class on time is 0.98. On Tuesdays, you wake up 30 minutes before class and your chance of being on time is 0.71. On Wednesdays you wake up 5 minutes before class, and your probability of being on time is only 0.16.
+
+1. What is the probability you were on time to class all three days?
+2. What is the probability you were late to class all three days?
+3. What is the probability you were on time at least once?
+
+]
+
+---
+
+## Multiplication Rule
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__:  Ten students order noodles at a certain local restaurant, placing their orders independently. Each student is known to prefer Japanese pan noodles 40% of the time.
+
+1. What is the probability that all 10 students order Japanese pan noodles?
+2. What is the probability that none of the students order Japanese pan noodles?
+3. What is the probability that at least one of the students orders Japanese pan noodles?
+
+]
+
+---
+
+## Multiplication Rule
+
+.bg-washed-blue.b--blue.ba.ph3[  __Example__:  If A and B are independent events, show that $A$ and $\bar{B}$ are also independent. Are $\bar{A}$ and $\bar{B}$ also independent?
+]
+
+---
+class: inverse
+
+# 2.10: Bayes' Rule
+
+- Partitions
+
+--
+
+- Law of Total Probability
+    
+--
+
+- Bayes' Rule
+
+    
+---
+
+## Partitions
+
+Any sample space $S$ can be divided into a partition of sets $B_{i}$ such that:
+
+$$S=B_{1}\cup B_{2}\cup\ldots\cup B_{k}$$
+
+
+- A __partition__ completely divides the sample space into mutually exclusive subsets.
+
+---
+
+## Partitions
+
+If $A$ is any subset of $S$ and $\{B_{1},B_{2},\ldots,B_{k}\}$ is a partition of $S$, then $A$ can be __decomposed__ as follows:
+
+$$A=\left(A\cap B_{1}\right)\cup\left(A\cap B_{2}\right)\cup\ldots\cup\left(A\cap B_{k}\right)$$
+
+---
+
+## Law of Total Probability
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Law of Total Probability__: Assume that $\{B_{1},B_{2},\ldots,B_{k}\}$ is a partition of $S$ such that $P(B_{i})>0$ for $i=1,2,\ldots,k$. Then for any event $A$,
+
+$P(A)=\sum_{i=1}^{k}P(A|B_{i})P(B_{i})$
+
+]
+
+- Sometimes it's much easier to calculate the conditional probabilities for an appropriate partition than to calculate P(A) directly.
+
+---
+
+## Bayes' Rule
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+Assume that $\{B_{1},B_{2},\ldots,B_{k}\}$ is a partition of $S$ such that $P(B_{i})>0$, for $i=1,2,\ldots,k$. Then, __Bayes' Rule__ states:
+
+$$P(B_{j}|A)=\frac{P(A|B_{j})P(B_{j})}{\sum_{i=1}^{k}P(A|B_{i})P(B_{i})}$$
+
+]
+
+---
+
+## Thomas Bayes (1701-1761)
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Thomas_Bayes.gif/225px-Thomas_Bayes.gif)
+
+- Bayes was an English philosopher, Presbyterian minister, and mathematician/probability theorist
+-  "An Essay towards solving a Problem in the Doctrine of Chances" was read to the Royal Society after his death, and published the following year (1764)
+
+---
+
+## Bayesian probability
+
+There are two major paradigms to modern statistical theory:
+
+1. __Frequentist statistics__: what you would have learned about in a previous statistics course (e.g. MTH 360/361, BUS 229, BIO 310...)
+
+2. __Bayesian statistics__: broadly speaking, methods are developed with the idea that _prior_ information about the problem or population should be incorporated into the analysis
+
+--
+
+- More on the frequentist v. Bayesian debate in MTH 562
+
+
+---
+
+## Bayes' Rule
+
+.bg-washed-blue.b--blue.ba.ph3[  __Example__:  Of the voters in a city, 40% are Republicans and 60% are Democrats. Among the Republicans, 70% are in favor of a bond issue, whereas 80% of Democrats favor the issue. If a voter is selected at random in the city, what is the probability that he or she will favor the bond issue?
+
+]
+
+---
+
+## Bayes' Rule
+  
+.bg-washed-blue.b--blue.ba.ph3[  __Example__:  An electronic fuse is produced by five production lines in a manufacturing operation. The fuses are costly, quite reliable, and are shipped to suppliers in 100-unit lots. Because testing is destructive, most buyers of the fuses test only a small number of fuses before deciding to accept or reject lots of incoming fuses. All five production lines produce fuses at the same rate and normally produce only 2% defective fuses, which are dispersed randomly in the output. Unfortunately production line 1 suffered mechanical difficulty and produced 5% defectives during the month of March. This situation became known to the manufacturer after the fuses had been shipped. A customer received a lot produced in March and tested three fuses. One failed. What is the probability that the lot was produced on line 1? What is the probability that the lot came from one of the other four lines?
+
+]
+
+---
+  
+## Bayes' Rule
+  
+.bg-washed-blue.b--blue.ba.ph3[  __Example__:  A study of Georgia residents suggests that those who worked in shipyards during World War II were subjected to a significantly higher risk of lung cancer. It was found that approximately 22% of those persons who had lung cancer worked at some prior time in a shipyard. In contrast, only 14% of those who had no lung cancer worked at some prior time in a shipyard. Suppose the proportion of all Georgians living during World War II who have or will have contracted lung cancer is 0.04%. Find the percentage of Georgians living during the same period who will contract (or have contracted) lung cancer, given that they have at some prior time worked in a shipyard.
+
+]
+
+---
+
+## Bayes' Rule
+
+.bg-washed-blue.b--blue.ba.ph3[  __Example__:  We know the following about a colormetric method used to test lake water for nitrates. If water specimens contain nitrates, a solution dropped into the water will cause the specimen to turn red 95% of the time. When used on water specimens without nitrates, the solution causes the water to turn red 10% of the time (because chemicals other than nitrates are sometimes present and they also react to the agent). Past experience in a lab indicates that nitrates are contained in 30% of the water specimens that are sent to the lab for testing. If a water specimen is randomly selected...
+
+- From among those sent to the lab, what is the probability that it will turn red when tested?
+- And turns red when tested, what is the probability that it actually contains nitrates?
+
+]
+
+---
+
+## Bayes' Rule
+
+.bg-washed-blue.b--blue.ba.ph3[  __Example__:  It's estimated that 82% of homes have working smoke detectors. On average, 22% of fires result in fatalities, but the presence of a working smoke detector cuts the risk to just 7%.
+
+- If a random fire resulted in a fatality, what is the probability that the house had a working smoke detector?
+- In homes without a working smoke detector, what is the risk of fatalities?
+]

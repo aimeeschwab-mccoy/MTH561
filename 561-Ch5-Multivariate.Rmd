@@ -1,0 +1,971 @@
+---
+title: 'Ch. 5: Multivariate Probability'
+#subtitle: "<span style = 'font-size: 90%;'>Sections 2.1-2.6</span>"
+author: "MTH 561: Probability Theory"
+date: "Last updated: `r Sys.Date()`"
+#institute: '`r icon::fa("twitter")` AimeeSMcCoy <br> `r icon::fa("envelope")` aimeeschwab-mccoy@creighton.edu'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      titleSlideClass: ['left', 'middle', 'inverse']
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse
+
+# 5.2: Bivariate distributions
+
+- Joint probability functions (pdfs)
+
+--
+
+- Joint distribution functions (CDFs)
+
+---
+
+```{css, include=FALSE}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-setup, include=FALSE}
+cols <- c("#0054a6", "#95d2f3")
+
+library(xaringanthemer)
+library(xaringanExtra)
+style_duo_accent(primary_color = "#0054a6",
+                 secondary_color = "#f1fffe",
+  header_font_google = google_font("Source Sans Pro"),
+  text_font_google = google_font("Source Sans Pro"))
+
+#xaringanExtra::use_logo(
+#  image_url = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Creighton_University_seal.svg/1200px-Creighton_University_seal.svg.png"
+#)
+
+
+xaringanExtra::use_tachyons()
+
+xaringanExtra::use_tile_view()
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, cache=TRUE)
+
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+```
+
+## Joint probability functions
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+Let $Y_1$ and $Y_2$ be discrete random variables. The __joint probability function__ for $Y_1$ and $Y_2$ is given by:
+
+$$p(y_1, y_2) = P(Y_1 =y_1, Y_2 = y_2)$$
+
+where $-\infty <y_1, y_2 <\infty$.
+
+- $p(y_1, y_2) \ge 0$ for all $y_1, y_2$
+- $\sum_{(y_1, y_2)} p(y_1, y_2) = 1$, where the sum is over all pairs $(y_1, y_2)$ with non-zero probabilities
+
+]
+
+---
+
+## Joint probability functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A local supermarket has three checkout counters.
+Two customers arrive at the counters at different times when the counters
+are serving no other customers. Each customer chooses a checkout at
+random, independent of the other. Let $Y_{i}$ denote the number of
+customers who choose counter $i$. Find the joint probability functions
+of $Y_{1}$ and $Y_{2}$.
+
+]
+
+---
+
+## Joint distribution functions
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+For any random variables $Y_{1}$ and $Y_{2}$, the joint (bivariate) distribution function $F(y_{1},y_{2})$ is
+
+$$F(y_{1},y_{2})=P(Y_{1}\le y_{1},Y_{2}\le y_{2})$$
+
+where $-\infty<y_{1},y_{2}<\infty$.
+
+- For two discrete variables $Y_{1}$ and $Y_{2}$,
+$F(y_{1},y_{2})$ is given by
+
+$$F(y_{1},y_{2})=\sum_{t_{1}\le y_{1}}\sum_{t_{2}\le y_{2}}p(t_{1},t_{2})$$
+
+]
+
+---
+
+## Joint distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A local supermarket has three checkout counters.
+Two customers arrive at the counters at different times when the counters
+are serving no other customers. Each customer chooses a checkout at
+random, independent of the other. Let $Y_{i}$ denote the number of
+customers who choose counter $i$. Find:
+
+1. $F(-1, 2)$
+2. $F(1.5, 2)$
+3. $F(5, 7)$
+
+]
+
+---
+
+## Continuous joint distributions
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+
+Let $Y_{1}$ and $Y_{2}$ be continuous random variables with __joint distribution function__ $F(y_{1},y_{2})$. If there exists a non-negative function $f(y_{1},y_{2})$, such that
+
+$$F(y_{1},y_{2})=\int_{-\infty}^{y_{1}}\int_{-\infty}^{y_{2}}f(t_{1},t_{2})dt_{2}dt_{1}$$
+
+for all $-\infty<y_{1},y_{2}<\infty$, then Y_{1} and Y_{2} are said to be __jointly continuous random variables__. The function $f(y_{1},y_{2})$ is called the joint probability density function.
+
+]
+
+---
+
+## Continuous joint distributions
+
+.bg-washed-green.b--green.ba.ph3[ 
+
+__Theorem__: If $Y_{1}$ and $Y_{2}$ are random variables with joint distribution function F(y_{1},y_{2}), then
+
+1. $F(-\infty,-\infty)=F(-\infty,y_{2})=F(y_{1},-\infty)=0$
+
+2. $F(\infty,\infty=1)$
+
+3. If $y_{1}^{*}\ge y_{1}$ and $y_{2}^{*}\ge y_{2}$, then 
+
+$$F(y_{1}^{*},y_{2}^{*})-F(y_{1}^{*},y_{2})-F(y_{1},y_{2}^{*})+F(y_{1},y_{2})\ge0$$
+]
+
+--
+
+Justify property 3.
+
+---
+
+## Continuous joint distributions
+
+For the univariate continuous case, areas under the probability density over an interval correspond to probabilities. 
+
+Similarly, the bivariate probability density function $f(y_{1},y_{2})$ traces a probability density surface over the $(y_{1},y_{2})$ plane. _Volumes under this surface correspond to probabilities._
+
+$$P(a_{1}\le y_{1}\le a_{2},b_{1}\le y_{2}\le b_{2}) = \int_{b_{1}}^{b_{2}}\int_{a_{1}}^{a_{2}}f(y_{1},y_{2})dy_{1}dy_{2}$$
+
+---
+
+## Continuous joint distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose that a radioactive particle is randomly located in a square with sides of unit length. That is, if two regions within the unit square and of equal length are considered, the particle is equally likely to be in either region. Let $Y_{1}$ and $Y_{2}$ denote the coordinates of the particle's location. A reasonable model for the relative frequency histogram for $Y_{1}$ and $Y_{2}$ is the bivariate analogue of the univariate uniform density function:
+
+$$f(y_{1},y_{2})=\begin{cases}
+1 & 0\le y_{1}\le1,\ 0\le y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+- Sketch the probability density surface.
+- Find $F(0.2,0.4)$.
+- Find $P(0.1\le Y_{1}\le0.3,0\le Y_{2}\le0.5)$.
+]
+
+---
+
+## Continuous joint distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Gasoline is to be stocked in a bulk tank once at the beginning of each week and then sold to individual customers. Let $Y_{1}$ denote the proportion of the capacity of the bulk tank that is available after the tank is stocked to the beginning of the week. Because of the limited supplies, $Y_{1}$ varies from week to week. Let $Y_{2}$ denote the proportion of the capacity of the bulk tank that is sold during the week. Because $Y_{1}$ and $Y_{2}$ are both proportions, both variables take on values between 0 and 1. Further, the amount sold, $y_{2}$, cannot exceed the amount available, $y_{1}$. Suppose that the joint density function for $Y_{1}$ and $Y_{2}$ is given by
+
+$$f(y_{1},y_{2})=\begin{cases}
+3y_{1} & 0\le y_{2}\le y_{1}\le1\\
+0 & elsewhere
+\end{cases}$$
+
+Sketch this probability density function. Find the probability that less than one-half of the tank will be stocked and more than one-quarter of the tank will be sold.
+]
+
+---
+class: inverse
+
+# 5.3: Marginal and conditional distributions
+
+- Marginal distributions
+
+--
+
+- Conditional distributions
+
+---
+
+## Marginal distributions
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+Let $Y_{1}$ and $Y_{2}$ be jointly discrete random variables with probability function $p(y_{1},y_{2})$. Then, the __marginal probability functions__ of $Y_{1}$ and $Y_{2}$, respectively, are given by
+
+$$p_{1}(y_{1})=\sum_{y_{2}}p(y_{1},y_{2})$$
+
+$$p_{2}(y_{2})=\sum_{y_{1}}p(y_{1},y_{2})$$
+
+For the continuous case, the __marginal density functions__ of $Y_{1}$ and $Y_{2}$ are defined in a similar way.
+
+$$f_{1}(y_{1})=\int_{-\infty}^{\infty}f(y_{1},y_{2})dy_{2}$$
+
+$$f_{2}(y_{2})=\int_{-\infty}^{\infty}f(y_{1},y_{2})dy_{1}$$
+]
+
+---
+
+## Marginal distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: From a group of three Republicans, two Democrats, and one independent, a committee of two people is to be randomly selected. Let $Y_{1}$ denote the number of Republicans and $Y_{2}$ denote the number of Democrats on the committee. Find the joint probability function of $Y_{1}$ and $Y_{2}$, and then find the marginal probability function for each.
+
+]
+
+---
+
+## Marginal distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let 
+
+$$f(y_{1},y_{2})=\begin{cases}
+2y_{1} & 0\le y_{1},y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+Sketch $f(y_{1},y_{2})$ and find the marginal density functions for $Y_{1}$ and $Y_{2}$.
+]
+
+
+---
+
+## Conditional distributions
+
+In some cases, we may want to condition on a particular random variable. We already know:
+
+$$P(A \cap B) = P(A) P(B\vert A)$$
+
+Extend this to a discrete distribution...
+
+$$p(y_{1},y_{2})=	p_{1}(y_{1})p(y_{2}|y_{1})
+=	p_{2}(y_{2})p(y_{1}|y_{2})$$
+
+---
+
+## Conditional distributions
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+
+If $Y_{1}$ and $Y_{2}$ are jointly discrete random variables with joint probability function $p(y_{1},y_{2})$ and marginal probability functions $p_{1}(y_{1})$ and $p_{2}(y_{2})$ respectively, then the __conditional discrete probability function__ of $Y_{1}$ given $Y_{2}$ is
+
+$$p(y_{1}|y_{2})=P(Y_{1}=y_{1}|Y_{2}=y_{2})=\frac{P(Y_{1}=y_{1},Y_{2}=y_{2})}{P(Y_{2}=y_{2})}=\frac{p(y_{1},y_{2})}{p_{2}(y_{2})}$$
+
+provided that $p_{2}(y_{2})>0$.
+
+The __conditional density function__ of $Y_{1}$ given $Y_{2}=y_{2}$ is given by
+
+$$f(y_{1}|y_{2})=\frac{f(y_{1},y_{2})}{f_{2}(y_{2})}$$
+
+and, for any $y_{1}$ such that $f_{1}(y_{1})>0$, the conditional density function of $Y_{2}$ given $Y_{2}=y_{1}$ is given by
+
+$$f(y_{2}|y_{1})=\frac{f(y_{1},y_{2})}{f_{1}(y_{1})}$$
+]
+
+---
+
+## Conditional distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A soft-drink machine has a random amount $Y_{2}$ of soda syrup in supply at the beginning of a given day and dispenses a random amount $Y_{1}$ during the day (with measurements in gallons). It isn't resupplied during the day, and hence $Y_{1}\le Y_{2}$. It has been observed that $Y_{1}$ and $Y_{2}$ have a joint density given by
+
+$$f(y_{1},y_{2})=\begin{cases}
+\frac{1}{2} & 0\le y_{1}\le y_{2}\le2\\
+0 & else
+\end{cases}$$
+
+That is, the points $(y_{1},y_{2})$ are uniformly distributed over the triangle with the given boundaries. Find the conditional density of $Y_{1}$ given $Y_{2}=y_{2}$. Find the probability that less than $\frac{1}{2}$ gallon will be sold, given that the machine contains 1.5 gallons at the start of the day.
+]
+
+---
+
+## Conditional distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Consider the committee being selected in a previous example. Find the conditional distribution of $Y_{1}$ given $Y_{2}=1$. That is, given that one of the two people on the committee is a Democrat, find the conditional distribution for the number of Republicans selected for the committee.
+
+]
+
+---
+
+## Conditional distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose that the random variables $Y_{1}$ and $Y_{2}$ have joint probability density function, $f(y_{1},y_{2})$,
+
+$$f(y_{1},y_{2})=\begin{cases}
+6y_{1}^{2}y_{2} & 0\le y_{1}\le y_{2};y_{1}+y_{2}\le2\\
+0 & else
+\end{cases}$$
+
+- Show that the marginal density of $Y_{1}$ is a beta density with $\alpha=3$ and $\beta=2$.
+- Derive the marginal density of Y_{2}. 
+]
+
+---
+
+## Conditional distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose that the random variables $Y_{1}$ and $Y_{2}$ have joint probability density function, $f(y_{1},y_{2})$,
+
+$$f(y_{1},y_{2})=\begin{cases}
+6y_{1}^{2}y_{2} & 0\le y_{1}\le y_{2};y_{1}+y_{2}\le2\\
+0 & else
+\end{cases}$$
+
+- Derive the conditional density of $Y_{2}$ given $Y_{1}=y_{1}$.
+- Find $P(Y_{2}<1.1|Y_{1}=0.6)$.
+]
+
+---
+class: inverse
+
+# 5.4: Independent random variables
+
+- Independence of two random variables
+
+--
+
+- Showing independence
+
+--
+
+- Consequences of independence
+
+---
+
+## Independence
+
+We  know that two events A and B are independent if:
+
+$$P(A\cap B)=P(A)\times P(B)$$
+
+A similar result holds for distribution functions!
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+Let $Y_{1}$ have distribution function $F_{1}(y_{1})$ and let $Y_{2}$ have distribution function $F_{2}(y_{2})$, and $Y_{1}$ and $Y_{2}$ have joint distribution function $F(y_{1},y_{2})$. Then $Y_{1}$ and $Y_{2}$ are said to be __independent__ if and only if 
+
+$$F(y_{1},y_{2})=F_{1}(y_{1})F_{2}(y_{2})$$
+
+for every pair of real numbers $(y_{1},y_{2})$.
+
+- If $Y_{1}$ and $Y_{2}$ are not independent, they are said to be __dependent__.
+]
+
+---
+
+## Independence
+
+.bg-washed-green.b--green.ba.ph3[ 
+__Theorem__: If $Y_{1}$ and $Y_{2}$ are discrete random variables with joint probability function $p(y_{1},y_{2})$ and marginal probability functions $p_{1}(y_{1})$ and $p_{2}(y_{2})$ respectively, then $Y_{1}$ and $Y_{2}$ are independent if and only if
+
+$$p(y_{1},y_{2})=p_{1}(y_{1})p_{2}(y_{2})$$
+
+for all pairs of real numbers $(y_{1},y_{2})$.
+
+If $Y_{1}$ and $Y_{2}$ are continuous random variables with joint density function $f(y_{1},y_{2})$ and marginal density functions $f_{1}(y_{1})$ and $f_{2}(y_{2})$ respectively, then $Y_{1}$ and $Y_{2}$ are independent if and only if 
+
+$$f(y_{1},y_{2})=f_{1}(y_{1})f_{2}(y_{2})$$
+
+for all pairs of real numbers $(y_{1},y_{2})$.
+]
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: From a group of three Republicans, two Democrats, and one independent, a committee of two people is to be randomly selected. Let $Y_{1}$ denote the number of Republicans and $Y_{2}$ denote the number of Democrats on the committee. Is $Y_{1}$ dependent of $Y_{2}$?
+]
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let 
+
+$$f(y_{1},y_{2})=\begin{cases}
+6y_{1}y_{2}^{2} & 0\le y_{1},y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+Show that $Y_{1}$ and $Y_{2}$ are independent.
+]
+
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let 
+
+$$f(y_{1},y_{2})=\begin{cases}
+2 & 0\le y_{2}\le y_{1}\le1\\
+0 & else
+\end{cases}$$
+
+Show that $Y_{1}$ and $Y_{2}$ are dependent.
+]
+
+---
+
+## Independence
+
+Based on the three previous examples, do you think there is a faster way to test for independence of random variables?
+
+--
+
+.bg-washed-green.b--green.ba.ph3[ 
+__Theorem__: Let $Y_{1}$ and $Y_{2}$ have a joint density $f(y_{1},y_{2})$ that is positive if and only if $a\le y_{1}\le b$ and $c\le y_{2}\le d$, for constants $a,b,c,d$; and $f(y_{1},y_{2})=0$ otherwise. Then $Y_{1}$ and $Y_{2}$ are independent random variables if and only if 
+
+$$f(y_{1},y_{2})=g(y_{1})h(y_{2})$$
+
+where $g(y_{1})$ is a non-negative function of $y_{1}$ alone and $h(y_{2})$ is a non-negative function of $y_{2}$ alone.
+]
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y_{1}$ and $Y_{2}$ have a joint density given by 
+
+$$f(y_{1},y_{2})=\begin{cases}
+2y_{1} & 0\le y_{1},y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+Are $Y_{1}$ and $Y_{2}$ independent variables?
+]
+
+---
+
+## Independence
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y_{1}$ be the total time between a customer's arrival in a store and leaving the store. Let $Y_{2}$ be the amount of time the customer spends in the checkout aisle of the store. Then the joint density of these variables is 
+
+$$f(y_{1},y_{2})=\begin{cases}
+e^{-y_{1}} & 0\le y_{2}\le y_{1}\le\infty\\
+0 & else
+\end{cases}$$
+
+Are $Y_{1}$ and $Y_{2}$ independent variables?
+]
+
+---
+class: inverse
+
+# 5.5-5.6: Expected values
+
+- Expected value of a function of random variables
+
+--
+
+- Expected value theorems and results
+
+---
+
+## Expected values
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+
+Let $g(Y_{1},Y_{2},\ldots,Y_{k})$ be a function of the discrete random variables, $Y_{1},Y_{2},\ldots,Y_{k}$, which have probability function $p(y_{1},y_{2},\ldots,y_{k})$. Then the __expected value__ of $g(Y_{1},Y_{2},\ldots,Y_{k})$ is
+
+$$E\left[g(Y_{1},Y_{2},\ldots,Y_{k})\right]=\sum_{y_{1}}\sum_{y_{2}}\ldots\sum_{y_{k}}g(Y_{1},Y_{2},\ldots,Y_{k})p(y_{1},y_{2},\ldots,y_{k})$$
+
+If $Y_{1},Y_{2},\ldots,Y_{k}$ are continuous random variables with joint density function $f(y_{1},y_{2},\ldots,y_{k})$, then
+
+$$E\left[g(Y_{1},Y_{2},\ldots,Y_{k})\right]=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\ldots\int_{-\infty}^{\infty}g(Y_{1},Y_{2},\ldots,Y_{k})f(y_{1},y_{2},\ldots,y_{k})dy_{1}dy_{2}\ldots dy_{k}$$
+
+]
+
+---
+
+## Expected values
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y_{1}$ and $Y_{2}$ have joint density given by
+
+$$f(y_{1},y_{2})=\begin{cases}
+2y_{1} & 0\le y_{1},y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+- Find $E(Y_{1}Y_{2})$.
+- Find $E(Y_{1})$.
+- Find $E(Y_{2})$.
+- Find $V(Y_{1})$.
+]
+
+---
+
+## Expected values
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: An environmental engineer measures the amount (by weight) of a particular pollutant in air samples of a certain volume collected over two smokestacks at a coal-operated power plant. One of the stacks is equipped with a cleaning device. Let $Y_{1}$ denote the amount of pollutant per sample collected above the stack that has no cleaning device and let $Y_{2}$ denote the amount of pollutant per sample collected above the stack that is equipped with the cleaning device. Suppose the relative frequency behavior of $Y_{1}$ and $Y_{2}$ can be modeled by
+
+$$f(y_{1},y_{2})=\begin{cases}
+k & 0\le y_{1}\le2;0\le y_{2}\le1;2y_{2}\le y_{1}\\
+0 & else
+\end{cases}$$
+
+- Find $k$ such that this is a valid density function.
+- Find the expected total pollutant from this power plant.
+- Find the expected reduction in pollutants released by using the cleaning device.
+]
+
+---
+
+## Expected values
+
+.bg-washed-green.b--green.ba.ph3[ 
+
+__Theorem__: Let $g(Y_{1},Y_{2})$ be a function of the random variables $Y_{1}$ and $Y_{2}$ and let $c$ be a constant. Then,
+
+$$E(c)=c$$
+
+$$E\left[cg(Y_{1},Y_{2})\right]=cE\left[g(Y_{1},Y_{2})\right]$$
+
+Let $Y_{1}$ and $Y_{2}$ be random variables and $g_{1}(Y_{1},Y_{2}),\ g_{2}(Y_{1},Y_{2}),\ \ldots,g_{k}(Y_{1},Y_{2})$ be functions of $Y_{1}$ and $Y_{2}$. Then
+
+$$\begin{array}{ccc}
+E\left[g_{1}(Y_{1},Y_{2})+\ldots+g_{k}(Y_{1},Y_{2})\right] & = & E\left[g_{1}(Y_{1},Y_{2})\right]+E\left[g_{2}(Y_{1},Y_{2})\right]\\
+ &  & +\ldots+E\left[g_{k}(Y_{1},Y_{2})\right]
+\end{array}$$
+]
+
+---
+
+## Expected values
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Gasoline is to be stocked in a bulk tank once at the beginning of each week and then sold to individual customers. Let $Y_{1}$ denote the proportion of the capacity of the bulk tank that is available after the tank is stocked to the beginning of the week. Because of the limited supplies, $Y_{1}$ varies from week to week. Let $Y_{2}$ denote the proportion of the capacity of the bulk tank that is sold during the week. Because $Y_{1}$ and $Y_{2}$ are both proportions, both variables take on values between 0 and 1. Further, the amount sold, $y_{2}$, cannot exceed the amount available, $y_{1}$. Suppose that the joint density function for $Y_{1}$ and $Y_{2}$ is given by
+
+$$f(y_{1},y_{2})=\begin{cases}
+3y_{1} & 0\le y_{2}\le y_{1}\le1\\
+0 & elsewhere
+\end{cases}$$
+
+The random variable $Y_{1}-Y_{2}$ represents the proportional amount of gasoline remaining at the end of the week. Find $E(Y_{1}-Y_{2})$.
+]
+
+---
+
+## Expected values
+
+If the random variables $Y_{1}$ and $Y_{2}$ are _independent_, we can sometimes use a shortcut.
+
+.bg-washed-green.b--green.ba.ph3[ 
+__Theorem__: Let $Y_{1}$ and $Y_{2}$ be independent random variables and $g(Y_{1})$ and $h(Y_{2})$ be functions of only $Y_{1}$ and $Y_{2}$, respectively. Then
+
+$$E\left[g(Y_{1})h(Y_{2})\right]=E\left[g(Y_{1})\right]E\left[h(Y_{2})\right]$$
+
+provided the expectations exist.
+]
+
+---
+
+## Expected values
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose $Y_{1}$ and $Y_{2}$ have the joint density function
+
+$$f(y_{1},y_{2})=\begin{cases}
+2(1-y_{1}) & 0\le y_{1}\le 1,0\le y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+Find $E(Y_{1}Y_{2})$.
+]
+
+---
+
+## Expected values
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose two types of components, type I and type II, are both used in an electronic system. Let $Y_{1}$ and $Y_{2}$ denote the length of life, in hundreds of hours, for these types of components. The joint density of $Y_{1}$ and $Y_{2}$ is
+
+$$f(y_{1},y_{2})=\begin{cases}
+\frac{1}{8}y_{1}e^{\frac{-(y_{1}+y_{2})}{2}} & y_{1}>0,y_{2}>0\\
+0 & else
+\end{cases}$$
+
+One way to measure the relative efficiency of the two components is to compute their ratio, $\frac{Y_{2}}{Y_{1}}$. Find the expected relative efficiency.
+]
+
+---
+class: inverse
+
+# 5.7: Correlation
+
+- Covariance between two random variables
+
+--
+
+- Correlation
+
+---
+
+
+## Covariance
+
+We can think of the dependence of two random variables $Y_{1}$ and $Y_{2}$ as implying that one variable – say $Y_{1}$ – increases or decreases as $Y_{2}$ changes. 
+
+--
+
+We'll focus on two measures of dependence: the covariance between two random variables and their correlation coefficient.
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+If $Y_{1}$ and $Y_{2}$ are random variables with means $\mu_{1}$ and $\mu_{2}$ respectively, the __covariance__ of $Y_{1}$ and $Y_{2}$ is
+
+$$Cov(Y_{1},Y_{2})=E\left[(Y_{1}-\mu_{1})(Y_{2}-\mu_{2})\right]$$
+
+- The larger the absolute value of the covariance of $Y_{1}$ and $Y_{2}$, the greater the linear dependence between $Y_{1}$ and $Y_{2}$.
+- Positive values indicate that as $Y_{1}$ increases, $Y_{2}$ also increases.
+- Negative values indicate that as $Y_{1}$ increases, $Y_{2}$ also decreases.
+- If $Cov(Y_{1},Y_{2})=0$, then the variables are uncorrelated.
+
+]
+
+---
+
+## Correlation
+
+Covariance cannot be used as an absolute measure of dependence, because its value depends on the scale of $Y_{1}$ and $Y_{2}$. 
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+
+One solution is to _standardize_ the covariance to get the __correlation coefficient__, $\rho$.
+
+$$\rho=\frac{Cov(Y_{1},Y_{2})}{\sigma_{1}\sigma_{2}}$$
+
+where $\sigma_{1}$ and $\sigma_{2}$ are the standard deviations of $Y_{1}$ and $Y_{2}$.
+
+- The sign of the correlation coefficient is the same as the sign of the covariance.
+- $|\rho|=1$ implies perfect correlation, with all points $Y_{1}$ and $Y_{2}$ falling on a straight line.
+]
+
+---
+
+## Covariance and correlation
+
+.bg-washed-green.b--green.ba.ph3[ 
+
+__Theorem__: If $Y_{1}$ and $Y_{2}$ are random variables with means $\mu_{1}$ and $\mu_{2}$ respectively, then
+
+$$Cov(Y_{1},Y_{2})=E\left[(Y_{1}-\mu_{1})(Y_{2}-\mu_{2})\right]=E(Y_{1}Y_{2})-E(Y_{1})E(Y_{2})$$
+]
+
+Prove this result.
+
+---
+
+## Covariance and correlation
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Recall the gasoline example. Find the covariance between the amount in stock $Y_{1}$ and the amount of sales $Y_{2}$.
+
+$$f(y_{1},y_{2})=\begin{cases}
+3y_{1} & 0\le y_{2}\le y_{1}\le1\\
+0 & elsewhere
+\end{cases}$$
+
+]
+
+---
+
+## Covariance and correlation
+
+.bg-washed-green.b--green.ba.ph3[ 
+
+__Theorem__: If $Y_{1}$ and $Y_{2}$ are independent random variables, then
+
+$$Cov(Y_{1},Y_{2})=0$$
+
+Then, independent random variables must be uncorrelated.
+]
+
+- _Important comment_: This is not a two-way street. $Cov(Y_1, Y_2) = 0$ does not imply variables are independent!
+
+---
+
+## Covariance and correlation
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y_{1}$ and $Y_{2}$ be discrete random variables with joint probability distribution as shown in the table below. Show that $Y_{1}$ and $Y_{2}$ are dependent but have zero covariance.
+
+ | $y_{1}=-1$ |	$y_{2}=0$ |	$y_{2}=1$
+-----|-----|-----
+$y_{2}=-1$ |	1/16	| 3/16 |	1/16
+$y_{2}=0$ |	3/16 |	0	 | 3/16
+$y_{2}=1$ |	1/16 |	3/16 |	1/16
+
+]
+
+---
+
+## Covariance and correlation
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose $Y_{1}$ and $Y_{2}$ have the joint probability density function
+
+$$f(y_{1},y_{2})=\begin{cases}
+6(1-y_{2}) & 0\le y_{1}\le y_{2}\le1\\
+0 & else
+\end{cases}$$
+
+Find $Cov(Y_{1},Y_{2})$. Are $Y_{1}$ and $Y_{2}$ independent?
+]
+
+---
+class: inverse
+
+# 5.8: Linear functions
+
+- Special results related to _linear functions_ of a random variable
+
+---
+
+## Linear functions
+
+In statistical practice, we frequently encounter linear functions of sample values $Y_{1},Y_{2},\ldots,Y_{n}$. 
+
+If $a_{1},a_{2},\ldots,a_{n}$ are constants, we might want to find the expected value and variance of a linear function of the random variables $Y_{1},Y_{2},\ldots,Y_{n}$.
+
+$$U_{1}=a_{1}Y_{1}+a_{2}Y_{2}+\ldots+a_{n}Y_{n}=\sum_{i=1}^{n}a_{i}Y_{i}$$
+
+We may also be interested in the covariance between two linear combinations, $U_{1}$ and $U_{2}$. 
+
+---
+
+## Linear functions
+
+.bg-washed-green.b--green.ba.ph3[ 
+
+__Theorem__: Let $Y_{1},Y_{2},\ldots,Y_{n}$ and $X_{1},X_{2},\ldots,X_{m}$ be random variables with $E(Y_{i})=\mu_{i}$ and $E(X_{i})=\xi_{i}$. Define
+
+$$\begin{array}{ccc}
+U_{1}=\sum_{i=1}^{n}a_{i}Y_{i} &  & U_{2}=\sum_{j=1}^{m}b_{j}X_{j}\end{array}$$
+
+for constants $a_{1},\ldots,a_{n}$ and $b_{1},\ldots,b_{m}$. Then the following hold:
+
+- $E(U_{i})=\sum_{i=1}^{n}a_{i}\mu_{i}$
+
+- $V(U_{i})=\sum_{i=1}^{n}a_{i}^{2}V(Y_{i})+2\sum\sum_{1\le i<j\le n}a_{i}b_{j}Cov(Y_{i},X_{j})$, where the double sum is over all pairs $(i,j)$ with $i<j$.
+
+- $Cov(U_{1},U_{2})=\sum_{i=1}^{n}\sum_{j=1}^{m}a_{i}b_{j}Cov(Y_{i},X_{j})$
+
+]
+
+---
+
+## Variance and covariance
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y_{1},Y_{2},Y_{3}$ be random variables, where $E(Y_{1})=1, E(Y_{2})=2$, and $E(Y_{3})=-1$. Additionally, $Y_{1},Y_{2},Y_{3}$ have the following variance-covariance matrix.
+
+$$\Sigma=\left[\begin{array}{ccc}
+1 & -0.4 & 0.5\\
+-0.4 & 3 & 2\\
+0.5 & 2 & 5
+\end{array}\right]$$
+
+- Find the expected value and variance of $U=Y_{1}-2Y_{2}+Y_{3}$.
+
+- If $W=3Y_{1}+Y_{2}$, find $Cov(U,W)$.
+]
+
+---
+
+## Linear functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Let $Y_{1},Y_{2},\ldots,Y_{n}$ be independent random variables with $E(Y_{i})=\mu$ and $V(Y_{i})=\sigma^{2}$. Define
+
+$$\bar{Y}=\frac{1}{n}\sum_{i=1}^{n}Y_{i}$$
+
+Show that $E(\bar{Y})=\mu$ and $V(\bar{Y})=\frac{\sigma^{2}}{n}$.
+]
+
+---
+
+## Linear functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: The number of defectives $Y$ in a sample of $n=10$ items selected from a manufacturing process follows a binomial probability distribution. An estimator of the fraction defective in the lot is the random variable $\hat{p}=\frac{Y}{n}$. Find the expected value and variance of $\hat{p}$.
+]
+
+---
+
+## Linear functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: For the daily output of an industrial operation, let $Y_{1}$ denote the amount of sales and $Y_{2}$, the cost, in thousands of dollars. Assume that the density functions for $Y_{1}$ and $Y_{2}$ are given by
+
+$$\begin{array}{ccc}
+f_{1}(y_{1})=\begin{cases}
+\frac{1}{6}y_{1}^{3}e^{-y_{1}} & y_{1}>0\\
+0 & y_{1}\le0
+\end{cases} &  & f_{2}(y_{2})=\begin{cases}
+\frac{1}{2}e^{-\frac{-y_{2}}{2}} & y_{2}>0\\
+0 & y_{2}\le0
+\end{cases}\end{array}$$
+
+The daily profit is given by $U=Y_{1}-Y_{2}$.
+
+- Find $E(U)$.
+- Assuming that $Y_{1}$ and $Y_{2}$ are independent, find $V(U)$.
+- Would you expect the daily profit to drop below zero very often? Why or why not?
+
+]
+
+---
+class: inverse
+
+# 5.11: Conditional expectation
+
+- Some shortcuts for finding expectation when you have a conditional distribution
+
+---
+
+## Conditional expectation
+
+.bg-washed-yellow.b--yellow.ba.ph3[ 
+
+If $Y_{1}$ and $Y_{2}$ are any two random variables, the conditional expectation of $g(Y_{1})$, given that $Y_{2}=y_{2}$ is defined to be 
+
+$$E\left[g(Y_{1})|Y_{2}=y_{2}\right]=\int_{-\infty}^{\infty}g(y_{1})f(y_{1}|y_{2})dy_{1}$$
+
+if $Y_{1}$ and $Y_{2}$ are jointly continuous and 
+
+$$E\left[g(Y_{1})|Y_{2}=y_{2}\right]=\sum_{y_{1}}g(y_{1})p(y_{1}|y_{2})$$
+
+if $Y_{1}$ and $Y_{2}$ are jointly discrete.
+]
+
+---
+
+## Conditional expectation
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A soft-drink machine has a random amount $Y_{2}$ of soda syrup in supply at the beginning of a given day and dispenses a random amount $Y_{1}$ during the day (with measurements in gallons). It isn't resupplied during the day, and hence $Y_{1}\le Y_{2}$. It has been observed that $Y_{1}$ and $Y_{2}$ have a joint density given by
+
+$$f(y_{1},y_{2})=\begin{cases}
+\frac{1}{2} & 0\le y_{1}\le y_{2}\le2\\
+0 & else
+\end{cases}$$
+
+Find the conditional expectation of the amount of sales, $Y_{1}$, given that $Y_{2}=1.5$.
+]
+
+---
+
+## Conditional expectation
+
+In general, the conditional expectation of $Y_{1}$ given $Y_{2}=y_{2}$ is a function of the _observed value_ $y_{2}$. However, if we consider $Y_{2}$ over all of its possible values, we can think of the conditional expectation $E(Y_{1}|Y_{2})$ as a function of the _random variable_ $Y_{2}$. 
+
+.bg-washed-purple.b--purple.ba.ph3[ 
+
+__Result__: Let $Y_{1}$ and $Y_{2}$ denote random variables. Then
+
+$$E(Y_{1})=E\left[E(Y_{1}|Y_{2})\right]$$
+
+where on the right-hand side the inside expectation is with respect to the conditional distribution of $Y_{1}$ given $Y_{2}$ and the outside expectation is with respect to the distribution of $Y_{2}$.
+]
+
+---
+
+## Conditional expectation
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A quality control plan for an assembly line involves sampling $n=10$ finished items per day and counting $Y$, the number of defectives. If $p$ denotes the probability of observing a defective, then $Y$ has a binomial distribution, assuming that a large number of items are produced by the line. But $p$ varies from day to day and is assumed to have a uniform distribution on the interval from 0 to 0.25. Find the expected value of $Y$.
+]
+
+---
+
+## Conditional expectation and variance
+
+.bg-washed-purple.b--purple.ba.ph3[ 
+
+__Result__: Let $Y_{1}$ and $Y_{2}$ denote random variables. Then
+
+$$V(Y_{1})=E\left[V(Y_{1}|Y_{2})\right]+V\left[E(Y_{1}|Y_{2})\right]$$
+]
+
+---
+
+## Conditional expectation and variance
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A quality control plan for an assembly line involves sampling $n=10$ finished items per day and counting $Y$, the number of defectives. If $p$ denotes the probability of observing a defective, then $Y$ has a binomial distribution, assuming that a large number of items are produced by the line. But $p$ varies from day to day and is assumed to have a uniform distribution on the interval from 0 to 0.25. Find the variance of $Y$.
+]
+
+---
+
+## Conditional expectation and variance
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Max will harvest $T$ tomatoes from his garden, where
+$T ∼ Poisson(\lambda)$. Each tomato is checked for defects, and the chance that a tomato has defects is $p$. Assume that having defects or not is independent from tomato to tomato. Find the expected value and variance of the number of defective tomatoes.
+]

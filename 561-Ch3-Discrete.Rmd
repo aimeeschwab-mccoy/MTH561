@@ -1,0 +1,861 @@
+---
+title: 'Ch. 3: Discrete Random Variables'
+#subtitle: "<span style = 'font-size: 90%;'>Sections 2.1-2.6</span>"
+author: "MTH 561: Probability Theory"
+date: "Last updated: `r Sys.Date()`"
+#institute: '`r icon::fa("twitter")` AimeeSMcCoy <br> `r icon::fa("envelope")` aimeeschwab-mccoy@creighton.edu'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      titleSlideClass: ['left', 'middle', 'inverse']
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse
+
+# 3.2-3.3: Discrete distributions, expected value, and variance
+
+- Random variables
+
+--
+
+- Probability mass functions, $p(y)$
+
+--
+
+- Expected value, $E(Y)$
+
+--
+
+- Variance, $V(Y)$
+
+---
+
+```{css, include=FALSE}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-setup, include=FALSE}
+cols <- c("#00243f", "#8ccbbe")
+
+library(xaringanthemer)
+library(xaringanExtra)
+style_duo_accent(primary_color = "#0054a6",
+                 secondary_color = "#f1fffe",
+  header_font_google = google_font("Source Sans Pro"),
+  text_font_google = google_font("Source Sans Pro"))
+
+#xaringanExtra::use_logo(
+#  image_url = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Creighton_University_seal.svg/1200px-Creighton_University_seal.svg.png"
+#)
+
+
+xaringanExtra::use_tachyons()
+
+xaringanExtra::use_tile_view()
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, cache=TRUE)
+
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+```
+
+
+## Random variables
+
+A __random variable__ is a real-valued function defined over a sample space, which can identify numerical events that are of interest.
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Discrete random variables__: can only assume a finite or countably infinite number of distinct values
+
+]
+
+--
+
+Notation:
+
+- Capital letters, like $X$ and $Y$, denote the random variable
+- Lowercase letters, like $x$ and $y$, denote the observed value
+
+---
+
+## Discrete random variables
+
+The probability that $Y$ takes on a particular value, denoted $P(Y=y)$ is defined as the sum of the probabilities of all sample points in $S$ that are assigned the value $y$.
+
+$$P(Y=y) = p(y)$$
+
+---
+
+## Discrete probability distributions
+
+The __probability distribution__ for a discrete random variable $Y$ is a formula, table, or graph that provides $p(y)=P(Y=y)$ for all $y$.
+
+- $p(y) \ge 0$
+
+--
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+__Probability mass function__: another term for the probability distribution for a discrete random variable
+
+]
+
+---
+
+## Discrete probability distributions
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: A supervisor in a manufacturing plant has three men and three women working for him. He wants to choose two workers for a special job. Not wishing to show any biases in his selection, he decides to select the two workers at random. Let $Y$ denote the number of women in his selection. Find $p(y)$.
+
+]
+
+---
+
+## Discrete probability distributions
+
+.bg-washed-green.b--green.ba.ph3[
+
+__Theorem__: For any discrete probability distribution, the following must be true:
+
+1. $0 \le p(y) \le 1$ for all $y$
+
+2. $\sum_y p(y)=1$ where the summation is over all values of $y$
+]
+
+--
+
+- The probability distributions we derive are _models_, not exact representations, for the frequency distributions of populations of real data that occur (or would occur) in nature.
+
+---
+
+## Expected values
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+
+Let $Y$ be a discrete random variable with the probability function $p(y)$. Then the __expected value__ of $Y$, $E(Y)$ is defined to be
+
+$E(Y)=\sum_{y}yp(y)$
+
+]
+
+- If $p(y)$ is an accurate description of the population distribution, then $E(Y)=\mu$, where $\mu$ is the population mean
+- The expected value is a _weighted average_ of the possible values $y$ based on their respective probabilities
+
+---
+
+## Expected values
+
+In some cases, we are interested in a function of a random variable. 
+
+.bg-washed-green.b--green.ba.ph3[
+
+__Theorem__: Let $Y$ be a discrete random variable with probability function $p(y)$ and $g(Y)$ be a real-valued function of $Y$. Then the expected value of $g(Y)$ is
+
+$E\left[g(Y)\right]=\sum_{y}g(Y)p(y)$
+
+]
+
+---
+
+## Variance
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+The __variance__ is a measure of variability: how "spread out" is the probability distribution?
+
+If $Y$ is a random variable with mean $E(Y)=\mu$, the variance of $Y$ is defined as:
+
+$$V(Y)=E\left[(Y-\mu)^2\right]$$
+
+]
+
+- The __standard deviation__ of $Y$ is the square root of the variance, and represents the "typical" distance between a randomly selected value and the mean $\mu$
+
+--
+
+Notation:
+
+- $V(Y)=\sigma^2$
+- $SD(Y)=\sigma$
+
+---
+
+## Expected value and variance
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: The probability distribution for a random variable $Y$ is given in the table below. Find:
+
+- $E(Y)$
+- $V(Y)$
+- $SD(Y)$
+
+and sketch a graph of the probability distribution.
+
+$y$ | $p(y)$
+---|---
+0|1/8
+1|1/4
+2|3/8
+3|1/4
+
+]
+
+---
+
+## Expected value and variance
+
+There are a few useful theorems to help us work with more complicated probability distributions. 
+
+.bg-washed-green.b--green.ba.ph3[
+
+__Theorem__: Let $Y$ be a discrete random variable with probability mass function $p(y)$ and let $c$ be a constant.
+
+Then,
+
+1. $E(c)=c$
+2. $E \left[ cg(Y) \right] = c E\left[ g(Y) \right]$
+3. $E\left[\sum_{i=1}^{k}g_{i}(Y)\right]=\sum_{i=1}^{k}E\left[g_{i}(Y)\right]$
+
+Let $E(Y)=\mu$. Then, 
+
+$$V(Y)=\sigma^{2}=E\left[(Y-\mu)^{2}\right]=E(Y^{2})-\mu^{2}$$
+]
+
+--
+
+This is sometimes called the “computational” version of the variance formula, it makes our work finding the variance much easier!
+
+---
+
+## Expected value and variance
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: The probability distribution for a random variable $Y$ is given in the table below. Use the "computational" formula to find $V(Y)$.
+
+$y$ | $p(y)$
+---|---
+0|1/8
+1|1/4
+2|3/8
+3|1/4
+
+]
+
+---
+
+## Expected value and variance
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: The manager of an industrial plant is planning to buy a new machine of either type A or type B. 
+
+If $t$ denotes the number of hours of daily operation, the number of daily repairs $Y_{A}$ required to maintain a machine of type A is a random variable with mean and variance both equal to $0.1t$. The number of daily repairs $Y_{B}$ for a machine of type B is a random variable with mean and variance both equal to $0.12t$. The daily cost of operating A is $C_{A}(t)=10t+30Y_{A}^{2}$; for B it is $C_{B}(t)=8t+30Y_{B}^{2}$. 
+
+Assume that the repairs take negligible time and that each night the machines are tuned so that they operate essentially like new machines at the start of the next day. Which machine minimizes the expected daily cost if a workday consists of 10 hours? What about 20 hours?
+]
+
+---
+class: inverse
+
+# 3.4: Binomial distribution
+
+- Bernoulli distribution
+
+--
+
+- Binomial distribution: definition and properties
+
+--
+
+- Finding binomial probabilities
+
+---
+
+## Bernoulli distribution
+
+A random variable $Y$ has a __Bernoulli distribution__ if
+
+$P(Y=1)=p$ and $P(Y=0)=1-p$
+
+for all $0\le p\le 1$. 
+
+$$Y \sim Bernoulli(p)$$
+
+- __Example__: Single coin flip, single random blood donor, etc...
+
+---
+
+## Bernoulli distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A national pollster wants to estimate the president's approval rating. Let $p$ represent the unknown proportion of all US adults who approve of the president. A random sample of 100 adults is taken. Each person is asked: "Do you agree or disagree with the president's handling of his job?" Assume voters are __independent and identically distributed (iid)__.
+
+- Identify the Bernoulli random variable.
+- Find an expression for the probability that the entire sample approves.
+
+]
+
+---
+
+## Bernoulli distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A national pollster wants to estimate the president's approval rating. Let $p$ represent the unknown proportion of all US adults who approve of the president. A random sample of 100 adults is taken. Each person is asked: "Do you agree or disagree with the president's handling of his job?"
+
+]
+
+```{r}
+n <- 100
+p <- seq(from=0, to=1, length=1000)
+p_all <- p^n
+
+data <- tibble(n, p, p_all)
+
+data %>% ggplot(aes(x=p, y=p_all)) + 
+  geom_line(col=cols[1]) + 
+  labs(x='Bernoulli p', 
+       y='Probability all approve') 
+```
+
+---
+
+## Bernoulli distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A national pollster wants to estimate the president's approval rating. Let $p$ represent the unknown proportion of all US adults who approve of the president. A random sample of 100 adults is taken. Each person is asked: "Do you agree or disagree with the president's handling of his job?"
+
+- Find an expression for the probability that $y$ voters in the sample approve.
+
+]
+
+---
+
+## Binomial distribution
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+A random variable $Y$ is said to have a __Binomial distribution__ with parameters $n$ and $p$ if:
+
+$$P(Y=y) = {n \choose y} p^y (1-p)^{(n-y)}$$
+
+for $y = 0, 1, ..., n$. 
+
+$$Y \sim Binomial(n, p)$$
+]
+
+---
+
+The _shape_ and _skew_ of the binomial distribution changes depending on the number of trials, $n$, and the probability of success, $p$.
+
+```{r}
+n <- 10
+p <- 0.5
+px <- dbinom(x=0:n, size=n, prob=p)
+
+data <- tibble(n, p, px)
+
+data %>% ggplot(aes(x=0:n, y=px)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Binomial(n=10, p=0.5)', x='y', y='p(y)')
+```
+
+---
+
+The _shape_ and _skew_ of the binomial distribution changes depending on the number of trials, $n$, and the probability of success, $p$.
+
+```{r, fig.height=7}
+data1 <- tibble(x=0:10,
+               dist1 = dbinom(x=0:10, 10, 0.5),
+               dist2 = dbinom(x=0:10, 10, 0.8))
+
+data2 <- tibble(x=0:50,
+               dist3 = dbinom(x=0:50, 50, 0.5),
+               dist4 = dbinom(x=0:50, 50, 0.8))
+
+p1 <- data1 %>% ggplot(aes(x=x, y=dist1)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Binomial(n=10, p=0.5)', x='y', y='p(y)')
+
+p2 <- data1 %>% ggplot(aes(x=x, y=dist2)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Binomial(n=10, p=0.8)', x='y', y='p(y)')
+
+p3 <- data2 %>% ggplot(aes(x=x, y=dist3)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Binomial(n=50, p=0.5)', x='y', y='p(y)')
+
+p4 <- data2 %>% ggplot(aes(x=x, y=dist4)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Binomial(n=50, p=0.8)', x='y', y='p(y)')
+
+(p1 | p2 ) / (p3 | p4)
+
+```
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: A multiple choice exam has 10 questions with four choices for each question. If a student guesses on each question from the available choices, what is the chance they will get exactly two questions right?
+
+]
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: A multiple choice exam has 10 questions with four choices for each question. If a student guesses on each question from the available choices, what is the chance they will get exactly two questions right?
+
+]
+
+```{r, echo=1, fig.height=3, fig.width=4}
+dbinom(x=2, size=10, prob=0.25)
+
+data <- tibble(x=0:10,
+               dist = dbinom(x=0:10, 10, 0.25)) %>%
+  mutate(highlight = ifelse(x==2, TRUE, FALSE))
+
+data %>% ggplot(aes(x=x, y=dist)) + 
+  geom_col(aes(fill=highlight)) + 
+  labs(title='Binomial(n=10, p=0.25)', x='y', y='p(y)') +
+  guides(fill=FALSE) + scale_fill_manual(values=cols)
+```
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+
+__Example__: A multiple choice exam has 10 questions with four choices for each question. If a student guesses on each question from the available choices, what is the chance they will get two or more questions right?
+]
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A multiple choice exam has 10 questions with four choices for each question. If a student guesses on each question from the available choices, what is the chance they will get two or less questions right?
+]
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A multiple choice exam has 10 questions with four choices for each question. If a student guesses on each question from the available choices, what is the chance they will get two or less questions right?
+
+]
+
+```{r, echo=1, fig.height=3, fig.width=4}
+pbinom(q=2, size=10, prob=0.25)
+
+data <- tibble(x=0:10,
+               dist = dbinom(x=0:10, 10, 0.25)) %>%
+  mutate(highlight = ifelse(x<=2, TRUE, FALSE))
+
+data %>% ggplot(aes(x=x, y=dist)) + 
+  geom_col(aes(fill=highlight)) + 
+  labs(title='Binomial(n=10, p=0.25)', x='y', y='p(y)') +
+  guides(fill=FALSE) + scale_fill_manual(values=cols)
+```
+
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: A multiple choice exam has 10 questions with four choices for each question. If a student guesses on each question from the available choices, what is the chance they will get more than two questions right?
+
+]
+
+---
+
+## `_binom` functions
+
+R commands for working with probability distributions have one of four prefixes: 
+
+- `d` for distribution, 
+- `p` for cumulative probability, 
+- `q` for quantile, and 
+- `r` for random sample.
+
+R command template|What it does
+---|---
+`dbinom(x=k, size=n, prob=p)`| $P(Y=k)$
+`pbinom(q=k, size=n, prob=p)`| $P(Y\le k)$
+`rbinom(n=k, size=n, prob=p)`|Simulates $k$ random variables
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Leder et al (2002) estimated that 12% of booked passengers do not show up to the gate due to cancellations and no-shows. If an airline sells 110 tickets for a flight that seats 100 passengers, what is the probability that the airline overbooked (sold more tickets than seats)?
+
+]
+
+
+```{r, eval=FALSE}
+pbinom(q=____, size=____, prob=____)
+```
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Studies have shown that 30% of all people afflicted by a certain serious illness recover. A drug compnay has developed a new medication for this illness. Ten people with the illness were selected at random and received the medication: nine recovered shortly thereafter. Suppose the medication is actually ineffective. What is the probability that at least 9 of 10 receiving the medication will recover?
+
+]
+
+---
+
+## Binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[
+__Example__: Based on the probability you just calculated, do you think the medication is effective? Explain why or why not.]
+
+---
+class: inverse
+
+# 3.5: Geometric distribution
+
+- Geometric distribution: definition and properties
+
+--
+
+- Finding geometric probabilities
+
+---
+
+## Geometric distribution
+
+A random variable $Y$ has a __Geometric distribution__ with parameter $p$ if
+
+$$P(Y=y) = (1-p)^{y-1} p$$
+
+for $y=1, 2, ...$.
+
+$$Y \sim Geometric(p)$$
+
+---
+
+## Geometric distribution
+
+```{r, fig.height=7}
+data1 <- tibble(x=0:20,
+               dist1 = dgeom(x=0:20, p=0.01),
+               dist2 = dgeom(x=0:20, p=0.1),
+               dist3 = dgeom(x=0:20, p=0.5),
+               dist4 = dgeom(x=0:20, p=0.9))
+
+
+p1 <- data1 %>% ggplot(aes(x=x, y=dist1)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Geometric(p=0.01))', x='y', y='p(y)')
+
+p2 <- data1 %>% ggplot(aes(x=x, y=dist2)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Geometric(p=0.1)', x='y', y='p(y)')
+
+p3 <- data1 %>% ggplot(aes(x=x, y=dist3)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Geometric(p=0.5)', x='y', y='p(y)')
+
+p4 <- data1 %>% ggplot(aes(x=x, y=dist4)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Geometric(p=0.9)', x='y', y='p(y)')
+
+(p1 | p2 ) / (p3 | p4)
+```
+
+---
+
+## Geometric distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: A player's batting average is 0.300. That is, when the player comes up to bat there is a 30% chance of getting a hit. Find the probability that after three times at bat, the player has not gotten a hit.
+
+]
+
+---
+
+## Geometric distribution
+
+Let $Y\sim Geometric(p)$. Then
+
+$$E(Y)=\frac{1}{p}$$
+
+$$V(Y) = \frac{1-p}{p^2}$$
+
+---
+
+## Geometric distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: A player's batting average is 0.300. That is, when the player comes up to bat there is a 30% chance of getting a hit. Find the expected value and variance of the number of times at bat before the player gets a hit.
+]
+
+---
+class: inverse
+
+# 3.6-3.7: Negative binomial and hypergeometric distributions
+
+- Negative binomial distribution: definition and properties
+
+--
+
+- Hypergeometric distribution: definition and properties
+
+--
+
+- Finding probabilities
+
+---
+
+## Negative binomial distribution
+
+A random variable $X$ follows the __negative binomial distribution__ with parameters $r$ and $p$ if
+
+$$P(Y=y) = {y-1 \choose r-1}p^r (1-p)^{y-r}$$
+
+for $r=1, 2, .... y=r, r+1, ...$.
+
+$$Y \sim NegBin(r, p)$$
+
+---
+
+## Negative binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Applicants for a new student internship are accepted with probability $p=0.15$ independently from person to person. Several hundred people are expected to apply. Find the probability that it will take no more than 100 applicants to find 10 students for the program.
+]
+
+---
+
+## Negative binomial distribution
+
+```{r}
+data <- tibble(x=0:150,
+               dist=dnbinom(0:150, 10, 0.15)) %>%
+  mutate(highlight = ifelse(x<= 100, TRUE, FALSE))
+
+data %>% ggplot(aes(x=x, y=dist)) + geom_col(aes(fill=highlight)) + 
+  scale_fill_manual(values=cols) + 
+  labs(x='y', y='p(y)') + guides(fill=FALSE)
+```
+
+---
+
+## Negative binomial distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: The World Series is a best-of-seven playoff between the top teams in the American and National Leagues. The team that wins the series is the first to win four games. If both teams are evenly matched, what's the expected length of a World Series?
+]
+
+---
+
+## Negative binomial distribution
+
+Let $Y \sim NegBin(r, p)$. Then
+
+$$E(Y)=\frac{r}{p}$$
+
+$$V(Y)=\frac{r(1-p)}{p^2}$$
+
+---
+
+## Hypergeometric distribution
+
+Suppose there are $r$ "special" objects that can be selected from $N$ total. If a sample of $n$ is taken without replacement, then the number of special objects $X$ in the sample follows a __hypergeometric distribution__.
+
+$$P(Y=y)=\frac{{r \choose y}{N-r \choose n-y}}{{N \choose n}}$$
+
+for $max[0, n-(N-r)]\le y \le min(n, r)$.
+
+$$XY\sim Hyper(n, N, r)$$
+
+---
+
+## Hypergeometric distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Suppose there are 100 political independents in a student body of 1000. A random sample of 50 students is chosen. What is the probability that there are less than three independents in the sample?
+]
+
+---
+
+## Hypergeometric distribution
+
+Let $Y \sim Hyper(n, N, r)$. Then, 
+
+$$E(Y)=\frac{nr}{N}$$
+
+$$V(Y)=\frac{nr(N-n)(N-r)}{N^2(N-1)}$$
+
+---
+
+## Hypergeometric distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: "Capture-recapture" methods have been used in ecology, public health, and sociology to count populations. In order to estimate the size $N$ of a population, like fish in a lake, researchers "capture" a sample of size $r$. Subjects are "tagged" and returned to the general population, then researchers capture a second sample of size $n$ and count the number $K$ which are found tagged. Find a valid estimate for $N$.
+
+]
+
+---
+class: inverse
+
+# 3.8: Poisson distribution
+
+- Poisson distribution: definition and properties
+
+--
+
+- Finding probabilities
+
+---
+
+## Poisson distribution
+
+A random variable $Y$ has a __Poisson distribution__ with parameter $\lambda >0$ if:
+
+$$P(Y=y) = \frac{e^{-y} \lambda^y}{y!}$$
+
+for $y=0, 1, 2, ...$.
+
+$$ Y \sim Poisson(\lambda)$$
+
+---
+
+## Poisson distribution
+
+```{r, fig.height=7}
+data1 <- tibble(x=0:30,
+               dist1 = dpois(x=0:30, lambda=0.5),
+               dist2 = dpois(x=0:30, lambda=2),
+               dist3 = dpois(x=0:30, lambda=5),
+               dist4 = dpois(x=0:30, lambda=10))
+
+p1 <- data1 %>% ggplot(aes(x=x, y=dist1)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Poisson(0.5)', x='y', y='p(y)')
+
+p2 <- data1 %>% ggplot(aes(x=x, y=dist2)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Poisson(2)', x='y', y='p(y)')
+
+p3 <- data2 %>% ggplot(aes(x=x, y=dist3)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Poisson(5)', x='y', y='p(y)')
+
+p4 <- data2 %>% ggplot(aes(x=x, y=dist4)) + 
+  geom_col(fill=cols[1]) + 
+  labs(title='Poisson(10)', x='y', y='p(y)')
+
+(p1 | p2 ) / (p3 | p4)
+
+```
+
+---
+
+## Poisson distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Data from a hospital maternity ward suggest that about 4.5 babies are born every day. What is the probability that there will be six births on the ward tomorrow?
+
+]
+
+```{r, eval=FALSE}
+dpois(x=_____, lambda=_____)
+```
+
+---
+
+## Poisson distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: According to the United States Geological Survey (USGS), there have been 36 major earthquakes (7.0 or greater on the Richter scale) since 1970. Assume earthquakes are independent. What is the probability that there will be at least one major earthquake in the next year?
+
+]
+
+
+```{r, eval=FALSE}
+dpois(x=_____, lambda=_____)
+```
+
+---
+
+## Poisson distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Increased research and discussion have focused on the number of illnesses involving _E.coli_, which causes a breakdown of red blood cells and hemorrhages in its victims. Sporadic outbreaks of _E.coli_ occur in Nebraska at a rate of approximately 2.4 per 100,000 for a period of two years. (Out of 100,00 people exposed to _E.coli_, 2.4 will get sick.)
+
+If this rate has not changed and 100,000 cases from Nebraska are reviewed for this year, what is the probability that at least 5 cases will be observed?
+
+]
+
+---
+
+## Poisson distribution
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Increased research and discussion have focused on the number of illnesses involving _E.coli_, which causes a breakdown of red blood cells and hemorrhages in its victims. Sporadic outbreaks of _E.coli_ occur in Nebraska at a rate of approximately 2.4 per 100,000 for a period of two years. (Out of 100,00 people exposed to _E.coli_, 2.4 will get sick.)
+
+If at least 5 cases are observed, does this suggest that the rate of _E.coli_ sickness in Nebraska has changed? Why or why not?
+]
+
+---
+class: inverse
+
+## Which discrete distribution?
+
+For the following exercises, 
+
+1. Determine which distribution fits the scenario, with the appropriate parameter(s)
+2. Find the requested probability, expected value, and/or variance
+
+---
+
+## Oil drilling
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: An oil prospector will drill a succession of holes in a given area to find a productive well. The probability that any random hole yields a productive well is 0.25.
+
+- What is the probability that the third hole drilled is the first to be productive?
+]
+
+---
+
+## Oil drilling
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: An oil prospector will drill a succession of holes in a given area to find a productive well. The probability that any random hole yields a productive well is 0.25.
+
+- If the prospector can only afford to drill 10 wells, what is the probability that he will fail to find a productive well?
+]
+
+---
+
+## Aircraft detection
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: An early-warning detection system for aircraft consists of four identical radar units operating independently of one another. Suppose that each has a probability of 95% of detecting an intruding aircraft. Find the probability an incoming aircraft goes undetected.
+]
+
+---
+
+## Pilot promotion
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: Twenty-five airline pilots are eligible for promotion to captain. However, the airline is having a rough fiscal year, and has decided to randomly promote 8 pilots. Of the 15 male pilots available for promotion, 3 are promoted. Of the 10 female pilots available for promotion, 5 are promoted. Is this evidence of gender discrimination against the male pilots?
+]
+
+---
+
+## Asbestos testing
+
+.bg-washed-blue.b--blue.ba.ph3[ __Example__: The employees of a firm that manufactures insulation are being tested for signs of asbestos in their lungs. The firm must send three employees who have positive indications of asbestos on to a medical center for further testing. If 40% of the employees have positive indications of asbestos in their lungs, how many tests should the firm expect to do in order to find three positives?
+]

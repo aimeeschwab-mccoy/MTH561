@@ -1,0 +1,608 @@
+---
+title: 'Ch. 6: Transformations and Functions of Random Variables'
+#subtitle: "<span style = 'font-size: 90%;'>Sections 2.1-2.6</span>"
+author: "MTH 561: Probability Theory"
+date: "Last updated: `r Sys.Date()`"
+#institute: '`r icon::fa("twitter")` AimeeSMcCoy <br> `r icon::fa("envelope")` aimeeschwab-mccoy@creighton.edu'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      titleSlideClass: ['left', 'middle', 'inverse']
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse
+
+# 6.2-6.3: Method of distribution functions
+
+- The "big assumption"
+
+--
+
+- Transformations: an overview
+
+--
+
+- Method of distribution functions
+
+---
+
+```{css, include=FALSE}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-setup, include=FALSE}
+cols <- c("#0054a6", "#95d2f3")
+
+library(xaringanthemer)
+library(xaringanExtra)
+style_duo_accent(primary_color = "#0054a6",
+                 secondary_color = "#f1fffe",
+  header_font_google = google_font("Source Sans Pro"),
+  text_font_google = google_font("Source Sans Pro"))
+
+#xaringanExtra::use_logo(
+#  image_url = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Creighton_University_seal.svg/1200px-Creighton_University_seal.svg.png"
+#)
+
+
+xaringanExtra::use_tachyons()
+
+xaringanExtra::use_tile_view()
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, cache=TRUE)
+
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+```
+
+## Probability $\rightarrow$ statistics
+
+One of the primary goals of statistics is to make inferences about a population based on information contained in a sample taken from that population. 
+
+- Then, all quantities used to estimate population parameters or to make decisions about a population are functions of the $n$ random observations that occur in a sample.
+
+---
+
+## "Big assumption"
+
+We'll assume during the rest of the class (and in MTH 562) that populations are relatively large compared to the sample size, and as a consequence the random variables obtained through a random sample are independent of one another. 
+
+In the discrete case the joint probability function for $Y_{1},Y_{2},\ldots,Y_{n}$ is given by
+
+$$p(y_{1},y_{2},\ldots,y_{n})=p(y_{1})p(y_{2})\ldots p(y_{n})$$
+
+In the continuous case, the joint density function is 
+
+$$f(y_{1},y_{2},\ldots,y_{n})=f(y_{1})f(y_{2})\ldots f(y_{n})$$
+
+--
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+The statement,
+
+> $Y_{1},Y_{2},\ldots,Y_{n}$ is a random sample from a population with density $f(y)$
+
+will mean that the random variables are independent with common density function $f(y)$.
+]
+
+---
+
+## Distributions of functions
+
+There are three major methods for finding the probability distribution of a function of random variables.
+
+- Multiple methods may be used in the same scenario, but one is often easier than the rest.
+- That "one method" is not always the same.
+
+--
+
+1. Method of distribution functions
+2. Method of transformations
+3. Method of moment-generating functions
+
+---
+
+## Method of distribution functions
+
+Let $U$ be a function of the random variables $Y_{1},Y_{2},\ldots,Y_{n}$.
+
+1. Find the region $U=u$ in the $(y_{1},y_{2},\ldots,y_{n})$ space.
+2. Find the region $U\le u$.
+3. Find $F_{U}(u)=P(U\le u)$ by integrating $f(y_{1},y_{2},\ldots,y_{n})$ over the region $U\le u$.
+4. Find the density function $f_{U}(u)$ by differentiating $F_{U}(u)$. Then, $f_{U}(u)=\frac{d}{du}F_{U}(u)$.
+
+--
+
+.bg-washed-red.b--red.ba.ph3[
+This method is most useful when the $Y_i$ are continuous.]
+
+---
+
+## Method of distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: A process for refining sugar yields up to 1 ton of pure sugar per day, but the actual amount produced, $Y$, is a random variable because of machine breakdowns and slowdowns. Suppose that $Y$ has distribution function given by
+
+$$f(y)=\begin{cases}
+2y & 0\le y\le1\\
+0 & else
+\end{cases}$$
+
+The company is paid at the rate of 300 per ton for the refined sugar, but it also has a fixed overhead cost of 100 per day. Thus the daily profit, in hundreds of dollars, is $U=3Y-1$. Find the probability density function for $U$.
+]
+
+---
+
+## Method of distribution functions
+
+In the bivariate situation, let $Y_{1}$ and $Y_{2}$ be random variables with joint density $f(y_{1},y_{2})$ and let $U=h(Y_{1},Y_{2})$ be a function of $Y_{1}$ and $Y_{2}$. 
+
+- Then for every point $(y_{1},y_{2})$ there corresponds one and only one value of $U$.
+
+- If we can find the region of values $(y_{1},y_{2})$ that such that $U\le u$, then we can find the density function of $U$.
+
+---
+
+## Method of distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: In the last chapter we considered the random variables $Y_{1}$ (the proportional amount of gasoline stocked at the beginning of a week) and $Y_{2}$ (the proportional amount of gasoline sold during the week). The joint density function of $Y_{1}$ and $Y_{2}$ is given by
+
+$$f(y_{1},y_{2})=\begin{cases}
+3y_{1} & 0\le y_{2}\le y_{1}\le1\\
+0 & else
+\end{cases}$$
+
+Find the probability density function for $U=Y_{1}-Y_{2}$, the proportional amount of gasoline remaining at the end of the week. Use the density function of $U$ to find $E(U)$.
+]
+
+---
+
+## Method of distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $(Y_{1},Y_{2})$ denote a random sample of size $n=2$ from the uniform distribution on the interval $(0,1)$. Find the probability density function for $U=Y_{1}+Y_{2}$.
+]
+
+---
+
+## Method of distribution functions
+
+The distribution function method can also be used to find the distribution of a function of a single random variable, $Y$.
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $Y$ have probability density function given by 
+
+$$f_{Y}(y)=\begin{cases}
+\frac{y+1}{2} & -1\le y\le1\\
+0 & else
+\end{cases}$$
+
+Find the density function for $U=Y^{2}$.
+]
+
+---
+
+## Method of distribution functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $U$ be a uniform random variable on the interval $(0,1)$. Find a transformation $G(U)$ such that $G(U)$ possesses an exponential distribution with mean $\beta$.
+]
+
+---
+class: inverse
+
+# 6.4: Method of transformations
+
+- Method of transformations
+
+    - Can be used as a quicker method when the desired transformation is monotone
+
+---
+
+## Method of transformations
+
+Let $U=h(Y)$, where $h(Y)$ is a monotone function (either increasing or decreasing) of $y$ for all $y$ such that $f_{Y}(y)>0$.
+
+1. Find the inverse function, $y=h^{-1}(u)$.
+2. Evaluate $\frac{d}{du}h^{-1}=\frac{d}{du}h^{-1}(u)$.
+3. Then 
+
+$$f_{U}(u)=f_{Y}\left[h^{-1}(u)\right]\left|\frac{d}{du}h^{-1}\right|$$
+
+---
+
+## Method of transformations
+
+Why does using the inverse function work? Suppose $h(Y)$ is an increasing function.
+
+$$P(U\le u)=P\left[h(Y)\le u\right]=P\left[h^{-1}\left(h(Y)\right)\le h^{-1}(u)\right]=P\left[Y\le h^{-1}(u)\right]$$
+
+$$F_{U}(u)=F_{Y}\left[h^{-1}(u)\right]$$
+
+What about a decreasing function?
+
+---
+
+## Method of transformations
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Revisit the amount of sugar produced with a density function given by 
+
+$$f_{Y}(y)=\begin{cases}
+2y & 0\le y\le1\\
+0 & else
+\end{cases}$$
+
+Consider the profit variable $U=3Y-1$. Find the probability density for $U$ using the transformation method. Which method do you prefer for this example? Why?
+]
+
+---
+
+## Method of transformations
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $Y$ have the probability density function given by
+
+$$f_{Y}(y)=\begin{cases}
+2y & 0\le y\le1\\
+0 & else
+\end{cases}$$
+
+Find the density function of $U=3-4Y$.
+]
+
+---
+
+## Method of transformations
+
+Direct application of this method requires that the function $h(y)$ be monotone for all $y$ such that $f_{Y}(y)>0$. If this isn't the case, another method should be used!
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $Y\sim Uniform(0,1)$. Find the distribution of $U=-ln(Y)$. 
+]
+
+---
+
+## Distributions of functions
+
+1. Method of distribution functions
+2. Method of transformations
+3. Method of __moment-generating functions__
+
+What's a moment-generating function?
+
+---
+class: inverse
+
+# 6.5: Method of moment-generating functions
+
+- What's a moment-generating function? (Sections 3.9 & 4.9)
+    
+--
+
+- Method of moment-generating functions
+
+    - Use this when the transformation involves a linear function of variables!
+
+---
+
+## Moment-generating functions
+
+Parameters like the population mean $E(Y)=\mu$ and population standard deviation $V(Y)=\sigma^2$ describe the center and spread respectively of a random variable $Y$. 
+
+However they don't provide a _unique characterization of the distribution_; different distributions can have the same $\mu$ and $\sigma$. 
+
+---
+
+## Moment-generating functions
+
+The distribution however can be uniquely determined using its __moments__.
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+The $k^{th}$ __moment of a random variable $Y$__ is defined as 
+
+$$E(Y^{k})=\mu'_{k}$$
+]
+
+---
+
+## Moment-generating functions
+
+.bg-washed-yellow.b--yellow.ba.ph3[
+The __moment-generating function__, $m(t)$, for a random variable $X$ is defined to be 
+
+$$m(t)=E\left[e^{tY}\right]$$
+]
+
+We say that a moment-generating function (MGF) for $Y$ exists if there exists a positive constant b such that $m(t)$ is finite for $|t|<b$. 
+
+---
+
+## Moment-generating functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Why is $m(t)$ the “moment generating” function? Use a Taylor series expansion to show.
+]
+
+---
+
+## Moment-generating functions
+
+If $m(t)$ exists, then for any positive integer $k$,
+
+$$\left.\frac{d^{k}m(t)}{dt^{k}}\right]_{t=0}=m^{(k)}(0)=\mu'_{k}$$
+
+In other words, taking the $k^{th}$ derivative of $m(t)$ with respect to $t$ and then setting $t=0$ yields $\mu'_{k}$.
+
+---
+
+## Moment-generating functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__:  Find the moment-generating function of $Y \sim Poisson(\lambda)$.
+]
+
+---
+
+## Moment-generating functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Find the moment-generating function of $Y \sim Exponential(\lambda)$.
+]
+
+---
+
+## Moment-generating functions
+
+The second, but probably more useful, application of the moment generating function is to prove that a random variable follows a particular distribution. 
+
+.bg-washed-green.b--green.ba.ph3[
+__Theorem__: Let $m_{X}(t)$ and $m_{Y}(t)$ denote the moment-generating functions of random variables $X$ and $Y$, respectively. If both moment-generating functions exist and $m_{X}(t)=m_{Y}(t)$ for all values of $t$, then $X$ and $Y$ have the same probability distribution. 
+]
+
+---
+
+## Moment-generating functions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Suppose that $Y$ is a random variable with moment generating function $m_{Y}(t)=e^{3.2(e^{t}-1)}$. What's the distribution of $Y$?
+]
+
+---
+
+## Discrete MGFs
+
+.bg-washed-red.b--red.ba.ph3[
+
+Binomial
+
+$$m_{Y}(t)=\left[pe^{t}+(1-p)\right]^{n}$$
+
+Geometric
+
+$$m_{Y}(t)=\frac{pe^{t}}{1-(1-p)e^{t}}$$
+
+Negative binomial
+
+$$m_{Y}(t)=\left[\frac{pe^{t}}{1-(1-p)e^{t}}\right]^{r}$$
+
+Poisson
+
+$$m_{Y}(t)=exp\left[\lambda(e^{t}-1)\right]$$
+
+]
+
+---
+
+## Continuous MGFs
+
+.bg-washed-green.b--green.ba.ph3[
+
+Uniform
+
+$$m_Y(t)= \frac{e^{tb}-e^{ta}}{t(b-a)}$$
+
+Normal
+
+$$m_Y(t)=exp\left[ \mu t+ \frac{t^2\sigma^2}{2} \right]$$
+
+Exponential
+
+$$m_{Y}(t)=(1-\beta t)^{-1}$$
+
+Gamma
+
+$$m_{Y}(t)=(1-\beta t)^{-\alpha}$$
+
+]
+
+- _No closed form solution for the $Beta(\alpha, \beta)$ moment-generating function_.
+
+---
+
+## Method of MGFs
+
+1. Method of distribution functions
+2. Method of transformations
+3. Method of __moment-generating functions__
+
+--
+
+Let $U$ be a function of the random variables $Y_{1},Y_{2},\ldots,Y_{n}$.
+
+1. Find the moment-generating function for $U$, $m_{U}(t)$.
+2. Compare $m_{U}(t)$ with other well-known moment-generating functions. If $m_{U}(t)=m_{V}(t)$ for all values of $t$, the uniqueness theorem implies that $U$ and $V$ have identical distributions.
+
+---
+
+## Method of MGFs
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: Suppose that $Y$ is a normally distributed random variable with mean $\mu$ and variance $\sigma^{2}$. Show that 
+
+$$Z=\frac{Y-\mu}{\sigma}$$
+
+has a standard normal distribution, a normal distribution with mean 0 and variance 1.
+]
+
+---
+
+## Method of MGFs
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Let $Z$ be a normally distributed random variable with mean 0 and variance 1. Use the method of moment-generating functions to find the probability distribution of $Z^{2}$.
+]
+
+---
+
+## Method of MGFs
+
+This method really shines when we're interested in _linear functions of random variables_.
+
+.bg-washed-green.b--green.ba.ph3[
+
+__Theorem__: Let $Y_{1},Y_{2},\ldots,Y_{n}$ be independent random variables with moment-generating functions $m_{Y_{1}}(t),m_{Y_{2}}(t),\ldots,m_{Y_{n}}(t)$, respectively. If $U=Y_{1}+Y_{2}+\ldots+Y_{n}$, then
+
+$$m_{U}(t)=m_{Y_{1}}(t)\times m_{Y_{2}}(t)\times\ldots\times m_{Y_{n}}(t)$$
+]
+
+---
+
+## Method of MGFs
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+
+__Example__: The number of customer arrivals at a checkout counter in a given interval of time possesses approximately a Poisson probability distribution. If $Y_{1}$ denotes the time until the first arrival, $Y_{2}$ denotes the time between the first and second arrival, and so on, then it can be shown that $Y_{1},Y_{2},\ldots,Y_{n}$ are independent random variables, with the density function for $Y_{i}$ given by
+
+$$f_{Y_{i}}(y_{i})=\begin{cases}
+\frac{1}{\theta}e^{\frac{-y_{i}}{\theta}} & y_{i}>0\\
+0 & else
+\end{cases}$$
+
+- What distribution does $Y_{i}$ follow? 
+- Find the probability density function for the waiting time from the opening of the counter until the $n^{th}$ customer arrives. 
+]
+
+---
+
+## Linear functions of normal distributions
+
+.bg-washed-green.b--green.ba.ph3[
+__Theorem__: Let $Y_{1},Y_{2},\ldots,Y_{n}$ be independent normally distributed random variables with $E(Y_{i})=\mu_{i}$ and $V(Y_{i})=\sigma_{i}^{2}$, for $i=1,2,\ldots n$, and let $a_{1},a_{2},\ldots,a_{n}$ be constants. If 
+
+$$U=\sum_{i=1}^{n}a_{i}Y_{i}=a_{1}Y_{1}+a_{2}Y_{2}+\ldots+a_{n}Y_{n}$$
+
+then $U$ is a __normally distributed random variable__ with
+
+$$E(U)=\sum_{i=1}^{n}a_{i}\mu_{i}\ \ \ \ V(U)=\sum_{i=1}^{n}a_{i}^{2}\sigma_{i}^{2}$$
+]
+
+---
+
+## Linear functions of normal distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Prove the previous theorem.
+]
+
+---
+
+## Linear functions of normal distributions
+
+.bg-washed-green.b--green.ba.ph3[
+__Theorem__: Let $Y_{1},Y_{2},\ldots,Y_{n}$ be defined as in the previous theorem and define $Z_{i}$ as
+
+$$Z_{i}=\frac{Y_{i}-\mu_{i}}{\sigma_{i}}$$
+
+for $i=1,2,\ldots,n$. Then $\sum_{i=1}^{n}Z_{i}^{2}$ has a $\chi^{2}$ distribution with n degrees of freedom.
+]
+
+---
+
+## Linear functions of normal distributions
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Prove the previous theorem.
+]
+
+---
+class: inverse
+
+# 6.7: Order statistics
+
+- Finding the distribution of the _minimum_ and _maximum_ of a random sample
+
+---
+
+## Order statistics
+
+Let $Y_{1},Y_{2},\ldots,Y_{n}$ denote independent continuous random variables with distribution function $F(y)$ and density function f(y). We denote the _ordered random variables_ as
+
+$$Y_{(1)},Y_{(2)},\ldots,Y_{(n)}$$
+
+where
+
+$$Y_{(1)}\le Y_{(2)}\le\ldots\le Y_{(n)}$$
+
+Using this notation, 
+
+$$Y_{(1)}=min(Y_{1},Y_{2},\ldots,Y_{n})$$
+
+and 
+
+$$Y_{(n)}=max(Y_{1},Y_{2},\ldots,Y_{n})$$
+
+---
+
+## Order statistics
+
+The probability density functions for __order statistics like $Y_{(1)}$ and$_Y_{(n)}$ can be found using the method of distribution functions.
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Derive a general form for the probability density function of the maximum, $Y_{(n)}$.
+]
+
+---
+
+## Order statistics
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Derive a general form for the probability density function of the minimum, $Y_{(1)}$.
+]
+
+---
+
+## Order statistics
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Electronic components of a certain type have a length of life $Y$, with probability density given by
+
+$$f(y)=\begin{cases}
+\frac{1}{100}e^{\frac{-y}{100}} & y>0\\
+0 & else
+\end{cases}$$
+
+(Length of life is measured in hours.) Suppose that two such components operate independently and in series in a certain system (hence, the system fails when either component fails). Find the density function for $X$, the length of the life of the system.
+]
+
+---
+
+## Order statistics
+
+.bg-washed-blue.b--blue.ba.ph3[ 
+__Example__: Suppose that the components in the previous system operate in parallel (hence, the system does not fail until both components fail). Find the density function for X, the length of life of the system.
+]
